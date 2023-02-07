@@ -195,18 +195,10 @@
 		return FALSE
 
 	switch(X.a_intent)
-		if(INTENT_HELP)
-			if(on_fire)
-				X.visible_message(span_danger("[X] stares at [src]."), span_notice("We stare at the roasting [src], toasty."), null, 5)
-				return FALSE
-			X.visible_message(span_notice("\The [X] caresses [src] with its scythe-like arm."), \
-			span_notice("We caress [src] with our scythe-like arm."), null, 5)
-			return FALSE
-
 		if(INTENT_GRAB)
 			return attack_alien_grab(X)
 
-		if(INTENT_HARM, INTENT_DISARM)
+		if(INTENT_HARM, INTENT_DISARM, INTENT_HELP)
 			return attack_alien_harm(X)
 	return FALSE
 
