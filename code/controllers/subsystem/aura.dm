@@ -164,4 +164,8 @@ SUBSYSTEM_DEF(aura)
 		if(!(potential_hearer.xeno_caste.caste_flags & CASTE_FIRE_IMMUNE) && potential_hearer.on_fire) //Xenos on fire cannot receive pheros.
 			continue
 		for(var/aura in aura_types)
-			potential_hearer.receive_aura(aura, strength)
+			var/aura_boost = 0
+			for(var/obj/structure/xeno/pherotower/pherotower AS in GLOB.hive_datums[XENO_HIVE_NORMAL].pherotowers)
+				if(pherotower.aura_type == aura)
+					aura_boost += pherotower.phero_boost
+			potential_hearer.receive_aura(aura, strength + aura_boost)

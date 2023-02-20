@@ -1234,11 +1234,14 @@ TUNNEL
 	///This pheromone tower's faction number.
 	var/hivenumber = XENO_HIVE_NORMAL
 	///The type of pheromone currently being emitted.
-	var/datum/aura_bearer/current_aura
+	///var/datum/aura_bearer/current_aura
+	var/aura_type
 	///Strength of pheromones given by this tower.
 	var/aura_strength = 5
 	///Radius (in tiles) of the pheromones given by this tower.
 	var/aura_radius = 32
+	///phero boost
+	var/phero_boost = 10
 
 /obj/structure/xeno/pherotower/Initialize(mapload, hivenum)
 	. = ..()
@@ -1247,7 +1250,8 @@ TUNNEL
 	hivenumber = hivenum
 
 //Pheromone towers start off with recovery.
-	current_aura = SSaura.add_emitter(src, AURA_XENO_RECOVERY, aura_radius, aura_strength, -1, FACTION_XENO)
+	//current_aura = SSaura.add_emitter(src, AURA_XENO_RECOVERY, aura_radius, aura_strength, -1, FACTION_XENO)
+	aura_type = AURA_XENO_RECOVERY
 	playsound(src, "alien_drool", 25)
 	update_icon()
 
@@ -1269,14 +1273,15 @@ TUNNEL
 	if(!phero_choice)
 		return
 
-	QDEL_NULL(current_aura)
-	current_aura = SSaura.add_emitter(src, phero_choice, aura_radius, aura_strength, -1, FACTION_XENO)
+	//QDEL_NULL(current_aura)
+	//current_aura = SSaura.add_emitter(src, phero_choice, aura_radius, aura_strength, -1, FACTION_XENO)
+	aura_type = phero_choice
 	balloon_alert(X, "[phero_choice]")
 	playsound(src, "alien_drool", 25)
 	update_icon()
 
 /obj/structure/xeno/pherotower/update_icon_state()
-	switch(current_aura.aura_types[1])
+	switch(aura_type)
 		if(AURA_XENO_RECOVERY)
 			icon_state = "recoverytower"
 			set_light(2, 2, LIGHT_COLOR_BLUE)
