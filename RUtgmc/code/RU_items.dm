@@ -1031,6 +1031,30 @@ SUBSYSTEM_DEF(ru_items)
 	cost = 450 //300 rounds
 	containertype = /obj/structure/closet/crate/ammo
 
+/datum/supply_packs/weapons/box_10x24mm_ap
+	name = "10x24mm armor piercing ammo box"
+	contains = list(/obj/item/ammo_magazine/packet/p10x24mm/ap)
+	cost = 240 //150 rounds
+	containertype = /obj/structure/closet/crate/ammo
+
+/datum/supply_packs/weapons/box_10x25mm_ap
+	name = "10x25mm armor piercing ammo box"
+	contains = list(/obj/item/ammo_magazine/packet/p10x25mm/ap)
+	cost = 220 //125 rounds
+	containertype = /obj/structure/closet/crate/ammo
+
+/datum/supply_packs/weapons/box_10x265mm_ap
+	name = "10x26.5mm armor piercing ammo box"
+	contains = list(/obj/item/ammo_magazine/packet/p10x265mm/ap)
+	cost = 160 //100 rounds
+	containertype = /obj/structure/closet/crate/ammo
+
+/datum/supply_packs/weapons/box_10x20mm_ap
+	name = "10x20mm armor piercing ammo box"
+	contains = list(/obj/item/ammo_magazine/packet/p10x20mm/ap)
+	cost = 225 //150 rounds
+	containertype = /obj/structure/closet/crate/ammo
+
 // finka nkvd
 /obj/item/weapon/combat_knife/nkvd
 	name = "\improper Finka NKVD"
