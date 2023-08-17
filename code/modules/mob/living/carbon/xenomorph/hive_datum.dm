@@ -32,6 +32,9 @@
 	///Reference to upgrades available and purchased by this hive.
 	var/datum/hive_purchases/purchases = new
 
+	///
+	var/list/hive_forbidencastes = list()
+
 // ***************************************
 // *********** Init
 // ***************************************
@@ -48,6 +51,16 @@
 
 	for(var/upgrade in GLOB.xenoupgradetiers)
 		xenos_by_upgrade[upgrade] = list()
+
+	for(var/caste_type_path AS in GLOB.xeno_caste_datums)
+		var/datum/xeno_caste/caste = GLOB.xeno_caste_datums[caste_type_path][XENO_UPGRADE_BASETYPE]
+		if(initial(caste.tier) == XENO_TIER_MINION)
+			continue
+		hive_forbidencastes += list(list(
+			"name" = initial(caste.caste_name),
+			"is_forbid" = FALSE,
+			"type_path" = caste.caste_type_path
+		))
 
 	SSdirection.set_leader(hivenumber, null)
 
@@ -144,6 +157,7 @@
 			"is_ssd" = !xeno.client,
 			"index" = GLOB.hive_ui_caste_index[caste.caste_type_path],
 		))
+	.["hive_forbidencastes"] = hive_forbidencastes
 
 	var/mob/living/carbon/xenomorph/xeno_user
 	if(isxeno(user))
@@ -271,6 +285,10 @@
 			if(!isxeno(usr))
 				return
 			TOGGLE_BITFIELD(xeno_target.status_toggle_flags, HIVE_STATUS_SHOW_STRUCTURES)
+		if("Forbid")
+			if(!isxenoqueen(usr))  // Queen only.
+				return
+			toggle_forbit(params["forbidcaste"] + 1); // +1 array offset
 
 /// Returns the string location of the xeno
 /datum/hive_status/proc/get_xeno_location(atom/xeno)
@@ -589,6 +607,14 @@
 /datum/hive_status/proc/update_leader_pheromones() // helper function to easily trigger an update of leader pheromones
 	for(var/mob/living/carbon/xenomorph/leader AS in xeno_leader_list)
 		leader.handle_xeno_leader_pheromones(living_xeno_queen)
+
+// ***************************************
+// *********** Forbid
+// ***************************************
+
+/datum/hive_status/proc/toggle_forbit(idx)
+	var/is_forbiden = hive_forbidencastes[idx]["is_forbid"]
+	hive_forbidencastes[idx]["is_forbid"] = !is_forbiden
 
 // ***************************************
 // *********** Status changes
