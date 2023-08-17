@@ -309,7 +309,6 @@
 			balloon_alert(src, "We can't evolve to forbided caste")
 			return FALSE
 
-
 	if(!regression)
 		if(new_caste_type.tier == XENO_TIER_TWO && no_room_tier_two)
 			balloon_alert(src, "The hive cannot support another Tier 2, wait for either more aliens to be born or someone to die")
