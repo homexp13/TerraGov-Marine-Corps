@@ -57,7 +57,6 @@
 		if(initial(caste.tier) == XENO_TIER_MINION)
 			continue
 		hive_forbidencastes += list(list(
-			"name" = initial(caste.caste_name),
 			"is_forbid" = FALSE,
 			"type_path" = caste.caste_type_path
 		))
