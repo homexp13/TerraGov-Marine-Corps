@@ -58,7 +58,8 @@
 			continue
 		hive_forbidencastes += list(list(
 			"is_forbid" = FALSE,
-			"type_path" = caste.caste_type_path
+			"type_path" = caste.caste_type_path,
+			"caste_name" = initial(caste.caste_name),
 		))
 
 	SSdirection.set_leader(hivenumber, null)
@@ -287,7 +288,7 @@
 		if("Forbid")
 			if(!isxenoqueen(usr))  // Queen only.
 				return
-			toggle_forbit(params["forbidcaste"] + 1); // +1 array offset
+			toggle_forbit(usr, params["forbidcaste"] + 1); // +1 array offset
 
 /// Returns the string location of the xeno
 /datum/hive_status/proc/get_xeno_location(atom/xeno)
@@ -611,9 +612,27 @@
 // *********** Forbid
 // ***************************************
 
-/datum/hive_status/proc/toggle_forbit(idx)
+/datum/hive_status/proc/toggle_forbit(mob/living/carbon/xenomorph/forbider, idx)
+	if(!forbit_checks(forbider, idx))
+		return
 	var/is_forbiden = hive_forbidencastes[idx]["is_forbid"]
+	var/caste_name = hive_forbidencastes[idx]["caste_name"]
+	if(is_forbiden)
+		xeno_message("[usr] undeclared the [caste_name] a forbidden caste!", "xenoannounce")
+		log_game("[key_name(usr)] has unforbid [caste_name].")
+		message_admins("[ADMIN_TPMONTY(usr)] has unforbid [caste_name].")
+	else
+		xeno_message("[usr] declared the [caste_name] a forbidden caste!", "xenoannounce")
+		log_game("[key_name(usr)] has forbid [caste_name].")
+		message_admins("[ADMIN_TPMONTY(usr)] has forbid [caste_name].")
 	hive_forbidencastes[idx]["is_forbid"] = !is_forbiden
+
+/datum/hive_status/proc/forbit_checks(mob/living/carbon/xenomorph/forbider, idx)
+	if(hive_forbidencastes[idx]["type_path"] in GLOB.forbid_excepts)
+		forbider.balloon_alert(forbider, "You can't forbid this caste!")
+		return FALSE
+	return TRUE
+
 
 // ***************************************
 // *********** Status changes

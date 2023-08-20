@@ -87,7 +87,6 @@ type DeathTimer = {
 };
 
 type ForbidenData = {
-  name: string;
   is_forbid: boolean;
 };
 
