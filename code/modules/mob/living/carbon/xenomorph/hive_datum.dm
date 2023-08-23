@@ -633,6 +633,9 @@
 		return FALSE
 	return TRUE
 
+/datum/hive_status/proc/unforbid_all_castes()
+	for(var/forbid_data in hive_forbidencastes)
+		forbid_data["is_forbid"] = FALSE
 
 // ***************************************
 // *********** Status changes
@@ -909,6 +912,7 @@
 /datum/hive_status/proc/on_queen_death()
 	living_xeno_queen = null
 	update_leader_pheromones()
+	unforbid_all_castes()
 
 /mob/living/carbon/xenomorph/larva/proc/burrow()
 	if(ckey && client)
