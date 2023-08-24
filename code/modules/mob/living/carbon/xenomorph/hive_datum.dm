@@ -639,7 +639,9 @@
 		return FALSE
 	return TRUE
 
-/datum/hive_status/proc/unforbid_all_castes()
+/datum/hive_status/proc/unforbid_all_castes(var/is_admin = FALSE)
+	if(is_admin)
+		xeno_message("Queen Mother unforbid all castes!", "xenoannounce")
 	for(var/forbid_data in hive_forbidencastes)
 		forbid_data["is_forbid"] = FALSE
 
