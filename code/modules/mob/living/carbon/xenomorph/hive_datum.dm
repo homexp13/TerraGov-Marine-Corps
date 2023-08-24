@@ -34,6 +34,7 @@
 
 	///
 	var/list/hive_forbidencastes = list()
+	var/forbid_count = 0
 
 // ***************************************
 // *********** Init
@@ -621,10 +622,15 @@
 		xeno_message("[usr] undeclared the [caste_name] a forbidden caste!", "xenoannounce")
 		log_game("[key_name(usr)] has unforbid [caste_name].")
 		message_admins("[ADMIN_TPMONTY(usr)] has unforbid [caste_name].")
+		forbid_count--
 	else
+		if(forbid_count >= MAX_FORBIDEN_CASTES)
+			forbider.balloon_alert(forbider, "You can't forbid more castes!")
+			return
 		xeno_message("[usr] declared the [caste_name] a forbidden caste!", "xenoannounce")
 		log_game("[key_name(usr)] has forbid [caste_name].")
 		message_admins("[ADMIN_TPMONTY(usr)] has forbid [caste_name].")
+		forbid_count++
 	hive_forbidencastes[idx]["is_forbid"] = !is_forbiden
 
 /datum/hive_status/proc/forbit_checks(mob/living/carbon/xenomorph/forbider, idx)
