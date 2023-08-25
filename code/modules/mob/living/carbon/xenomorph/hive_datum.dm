@@ -644,6 +644,7 @@
 		xeno_message("Queen Mother unforbid all castes!", "xenoannounce")
 	for(var/forbid_data in hive_forbidencastes)
 		forbid_data["is_forbid"] = FALSE
+	forbid_count = 0
 
 // ***************************************
 // *********** Status changes
