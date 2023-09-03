@@ -19,7 +19,7 @@
 		to_chat(user, span_warning("No traceable signals found!"))
 		return
 	if(!(SSticker.mode?.flags_round_type & MODE_ALLOW_PINPOINTER))
-		to_chat(user, span_warning("Signals are to weak!"))
+		to_chat(user, span_warning("Signals are too weak!"))
 		return
 	target = tgui_input_list(user, "Select the item you wish to track.", "Pinpointer", tracked_list)
 	if(QDELETED(target))
