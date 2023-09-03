@@ -718,7 +718,11 @@
 	target.balloon_alert(target, "Forced deevolution")
 	to_chat(target, span_xenowarning("[devolver] deevolved us for the following reason: [reason]."))
 
-	target.do_evolve(new_caste.caste_type_path, new_caste.caste_name, TRUE)
+	var/is_full_evo = FALSE
+	if(new_caste.caste_type_path == /mob/living/carbon/xenomorph/larva)
+		is_full_evo = TRUE
+
+	target.do_evolve(new_caste.caste_type_path, new_caste.caste_name, TRUE, is_full_evo)
 
 	log_game("[key_name(devolver)] has deevolved [key_name(target)]. Reason: [reason]")
 	message_admins("[ADMIN_TPMONTY(devolver)] has deevolved [ADMIN_TPMONTY(target)]. Reason: [reason]")
