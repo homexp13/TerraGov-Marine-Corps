@@ -227,3 +227,77 @@ SUBSYSTEM_DEF(points)
 		LAZYADDASSOCSIMPLE(shoppinglist[user.faction], "[orders[i].id]", orders[i])
 	personal_supply_points[user.ckey] -= cost
 	ckey_shopping_cart.Cut()
+
+/datum/controller/subsystem/points/proc/fast_delivery(datum/supply_order/O, mob/living/user)
+	//select beacon
+	var/datum/supply_beacon/supply_beacon = GLOB.supply_beacon[tgui_input_list(user, "Select the beacon to send supplies", "Beacon choice", GLOB.supply_beacon)]
+	if(!istype(supply_beacon))
+		return
+
+	//Same checks as for supply console
+	if(!supply_beacon)
+		to_chat(user, span_warning("There was an issue with that beacon. Check it's still active."))
+		return
+	if(!istype(supply_beacon.drop_location))
+		to_chat(user, span_warning("The [supply_beacon.name] was not detected on the ground."))
+		return
+	if(isspaceturf(supply_beacon.drop_location) || supply_beacon.drop_location.density)
+		to_chat(user, span_warning("The [supply_beacon.name]'s landing zone appears to be obstructed or out of bounds."))
+		return
+
+	//Just in case
+	if(!length_char(SSpoints.shoppinglist[O.faction]))
+		return
+	//log_game("Supply pack orders have been purchased by [key_name(user)]")
+
+	//Finally create the supply box
+
+	var/turf/TC = locate(supply_beacon.drop_location.x, supply_beacon.drop_location.y, supply_beacon.drop_location.z)
+
+	var/datum/supply_packs/firstpack = O.pack[1]
+
+	var/obj/structure/crate_type = firstpack.containertype || firstpack.contains[1]
+
+	var/obj/structure/A = new crate_type(TC)
+	if(firstpack.containertype)
+		A.name = "Order #[O.id] for [O.orderer]"
+
+	//supply manifest generation begin
+
+	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest(A)
+	slip.info = "<h3>Automatic Storage Retrieval Manifest</h3><hr><br>"
+	slip.info +="Order #[O.id]<br>"
+	slip.info +="[length_char(O.pack)] PACKAGES IN THIS SHIPMENT<br>"
+	slip.info +="CONTENTS:<br><ul>"
+	slip.update_icon()
+
+	var/list/contains = list()
+	//spawn the stuff, finish generating the manifest while you're at it
+	for(var/P in O.pack)
+		var/datum/supply_packs/SP = P
+		// yes i know
+		if(SP.access)
+			A.req_access = list()
+			A.req_access += text2num(SP.access)
+
+		if(SP.randomised_num_contained)
+			if(length_char(SP.contains))
+				for(var/j in 1 to SP.randomised_num_contained)
+					contains += pick(SP.contains)
+		else
+			contains += SP.contains
+
+	for(var/typepath in contains)
+		if(!typepath)
+			continue
+		if(!firstpack.containertype)
+			break
+		var/atom/B2 = new typepath(A)
+		slip.info += "<li>[B2.name]</li>" //add the item to the manifest
+
+	//manifest finalisation
+	slip.info += "</ul><br>"
+	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
+
+	SSpoints.shoppinglist[O.faction] -= "[O.id]"
+	SSpoints.shopping_history += O
