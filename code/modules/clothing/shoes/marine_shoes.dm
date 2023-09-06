@@ -68,6 +68,7 @@
 	for(var/atom/item_in_pocket AS in pockets.contents)
 		if(istype(item_in_pocket, /obj/item/weapon/combat_knife) || istype(item_in_pocket, /obj/item/attachable/bayonetknife) || istype(item_in_pocket, /obj/item/stack/throwing_knife))
 			icon_state += "-knife"
+			break
 
 /obj/item/clothing/shoes/marine/full
 	pockets = /obj/item/storage/internal/shoes/boot_knife/full
