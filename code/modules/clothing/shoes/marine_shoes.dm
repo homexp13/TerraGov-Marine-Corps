@@ -12,17 +12,19 @@
 	var/obj/item/storage/internal/pockets = /obj/item/storage/internal/shoes/boot_knife
 
 /obj/item/storage/internal/shoes/boot_knife
-	max_storage_space = 3
-	storage_slots = 1
+	storage_slots = 2
+	max_w_class = WEIGHT_CLASS_TINY
 	draw_mode = TRUE
-	can_hold = list(
+	bypass_w_limit = list(
 		/obj/item/weapon/combat_knife,
-		/obj/item/weapon/gun/pistol/standard_pocketpistol,
-		/obj/item/weapon/gun/shotgun/double/derringer,
 		/obj/item/attachable/bayonetknife,
-		/obj/item/stack/throwing_knife,
 		/obj/item/storage/box/MRE,
+		/obj/item/reagent_containers/food/snacks,
 	)
+	cant_hold = list(
+		/obj/item/stack,
+	)
+	max_storage_space = 4
 
 /obj/item/clothing/shoes/marine/Initialize()
 	. = ..()
