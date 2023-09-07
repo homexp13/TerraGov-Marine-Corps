@@ -301,3 +301,7 @@ SUBSYSTEM_DEF(points)
 
 	SSpoints.shoppinglist[O.faction] -= "[O.id]"
 	SSpoints.shopping_history += O
+
+	//effects
+	supply_beacon.drop_location.visible_message(span_boldnotice("A supply drop appears suddendly!"))
+	playsound(supply_beacon.drop_location,'sound/effects/phasein.ogg', 50, TRUE)
