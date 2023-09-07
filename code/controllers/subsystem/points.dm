@@ -1,6 +1,8 @@
 // points per minute
 #define DROPSHIP_POINT_RATE 26 * ((GLOB.current_orbit+3)/6)
 #define SUPPLY_POINT_RATE 20 * (GLOB.current_orbit/3)
+// fast delivery defines
+#define FAST_DELIVERY_TAX 0.3 * (GLOB.current_orbit + 2/3)
 
 SUBSYSTEM_DEF(points)
 	name = "Points"
@@ -233,6 +235,20 @@ SUBSYSTEM_DEF(points)
 	var/datum/supply_beacon/supply_beacon = GLOB.supply_beacon[tgui_input_list(user, "Select the beacon to send supplies", "Beacon choice", GLOB.supply_beacon)]
 	if(!istype(supply_beacon))
 		return
+
+	var/fast_delivery_cost = 0
+	for(var/i in O.pack)
+		var/datum/supply_packs/SP = i
+		fast_delivery_cost += SP.cost
+
+	fast_delivery_cost *= FAST_DELIVERY_TAX
+
+	//fast delivery is not free
+	if(fast_delivery_cost > supply_points[O.faction])
+		to_chat(user, span_warning("Cargo does not have enough points for fast delivery."))
+		return
+
+	supply_points[user.faction] -= fast_delivery_cost
 
 	//Same checks as for supply console
 	if(!supply_beacon)
