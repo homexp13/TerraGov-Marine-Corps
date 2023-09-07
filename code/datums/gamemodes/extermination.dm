@@ -5,7 +5,7 @@
 	flags_round_type = MODE_INFESTATION|MODE_LATE_OPENING_SHUTTER_TIMER|MODE_XENO_RULER|MODE_PSY_POINTS|MODE_PSY_POINTS_ADVANCED|MODE_DEAD_GRAB_FORBIDDEN|MODE_HIJACK_POSSIBLE|MODE_SILO_RESPAWN|MODE_SILOS_SPAWN_MINIONS|MODE_ALLOW_XENO_QUICKBUILD|MODE_ALLOW_PINPOINTER|MODE_SILO_NO_LARVA_GENERATION
 
 	///How long between two larva check, 2 minutes for crush
-	var/larva_check_interval = 2 SECONDS
+	var/larva_check_interval = 1 MINUTES
 	///Last time larva balance was checked
 	var/last_larva_check
 
@@ -86,9 +86,9 @@
 		xeno_job.add_job_positions(1)
 		return
 	var/larva_surplus = (get_total_joblarvaworth() - (num_xenos * xeno_job.job_points_needed )) / xeno_job.job_points_needed
-	while(larva_surplus >= 1)
-		xeno_job.add_job_positions(1)
-		larva_surplus--
+	if(larva_surplus < 1)
+		return //Things are balanced, no burrowed needed
+	xeno_job.add_job_positions(1)
 	xeno_hive.update_tier_limits()
 
 
