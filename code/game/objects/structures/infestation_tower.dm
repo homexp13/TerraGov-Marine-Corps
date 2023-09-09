@@ -2,7 +2,7 @@
 /obj/structure/sensor_tower_infestation
 	name = "sensor tower"
 	desc = "A tall tower with a sensor array at the top and a control box at the bottom. Has a lengthy activation process."
-	icon = 'icons/obj/structures/sensor.dmi'
+	icon = 'icons/obj/structures/sensor.dmi'  //TODO:  change icons
 	icon_state = "sensor"
 	obj_flags = NONE
 	density = TRUE
@@ -22,6 +22,17 @@
 	var/towerid
 	///True if the sensor tower has finished activation, used for minimap icon and preventing deactivation
 	var/activated = FALSE
+
+	//point generation
+
+	///Tracks how many ticks have passed since we last added a sheet of material
+	var/add_tick = 0
+	///How many times we neeed to tick for a resource to be created, in this case this is 2* the specified amount
+	var/required_ticks = 60
+	///The amount of profit, less useful than phoron miners
+	var/points_income = 80
+	///Applies the actual bonus points for the dropship for each sale, even much more than miners
+	var/dropship_bonus = 20
 
 /obj/structure/sensor_tower_infestation/Initialize()
 	. = ..()
@@ -106,6 +117,8 @@
 	activated = TRUE
 	update_icon()
 
+	START_PROCESSING(SSobj, src)
+
 	var/datum/game_mode/infestation/distress/sensor_defence/mode = SSticker.mode
 	mode.sensors_activated += 1
 
@@ -115,6 +128,7 @@
 ///Stops timer if activating and sends an alert
 /obj/structure/sensor_tower_infestation/proc/deactivate()
 	if(activated)
+		STOP_PROCESSING(SSobj, src)
 		var/datum/game_mode/infestation/distress/sensor_defence/mode = SSticker.mode
 		mode.sensors_activated -= 1
 	activated = FALSE
@@ -133,6 +147,18 @@
 		SSminimaps.add_marker(src, z, MINIMAP_FLAG_ALL, "relay_1_on_full") //TODO: change icons
 	else
 		SSminimaps.add_marker(src, z, MINIMAP_FLAG_ALL, "relay_1[current_timer ? "_on" : "_off"]") //TODO: change icons
+
+/obj/structure/sensor_tower_infestation/process()
+	if(add_tick >= required_ticks)
+		SSpoints.supply_points[FACTION_TERRAGOV] += points_income
+		SSpoints.dropship_points += dropship_bonus
+		//GLOB.round_statistics.points_from_mining += mineral_value // TODO: make statistic
+		do_sparks(5, TRUE, src)
+		say("Scientific data has been sold for [points_income] points.")
+		add_tick = 0
+		return
+	else
+		add_tick += 1
 
 //Should be in landmarks.dm, but still ok
 
