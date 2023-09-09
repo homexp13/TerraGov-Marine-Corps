@@ -11,7 +11,7 @@
 	///The timer for when the sensor tower activates
 	var/current_timer
 	///Time it takes for the sensor tower to fully activate
-	var/generate_time = 120 SECONDS
+	var/generate_time = 180 SECONDS
 	///Time it takes to start the activation
 	var/activate_time = 4 SECONDS
 	///Time it takes to stop the activation
