@@ -1,7 +1,7 @@
 /datum/game_mode/infestation/distress/sensor_defence
-	name = "Sensor_defence"
-	config_tag = "Sensor_defence"
-	silo_scaling = 2
+	name = "Sensor defence"
+	config_tag = "Sensor defence"
+	silo_scaling = 0.4 //do you really need a silo?
 
 	///The amount of activated sensor towers in sensor defence
 	var/sensors_activated = 0
@@ -25,7 +25,7 @@
 	var/num_xenos = living_player_list[2]
 	var/num_humans_ship = living_player_list[3]
 
-	if(sensors_activated >= SENSORS_NEEDED)
+	if(sensors_activated >= length_char(GLOB.sensor_towers_infestation))
 		message_admins("Round finished: [MODE_INFESTATION_M_MAJOR]") //marines managed to activate all sensors
 		round_finished = MODE_INFESTATION_M_MAJOR
 		return TRUE

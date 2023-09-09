@@ -54,7 +54,7 @@
 		//balloon_alert(user, "This sensor tower is already fully activated, you cannot deactivate it!")
 		//return
 
-	if(attack_alien_state_check())
+	if(attack_alien_state_check(X))
 		return
 
 	balloon_alert(X, "You begin to deativate sensor tower!")
@@ -66,17 +66,17 @@
 	//if(!current_timer)
 		//balloon_alert(X, "This sensor tower is not currently activated")
 		//return
-	if(attack_alien_state_check())
+	if(attack_alien_state_check(X))
 		return
 	balloon_alert(X, "You deactivate sensor tower!")
 	deactivate()
 
-/obj/structure/sensor_tower_infestation/proc/attack_alien_state_check()
+/obj/structure/sensor_tower_infestation/proc/attack_alien_state_check(mob/living/user)
 	if(activated)
 		return FALSE
 	if(current_timer)
 		return FALSE
-	balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
+	balloon_alert(user, "This sensor tower is not activated yet, don't let it be activated!")
 	return TRUE
 
 ///Handles attacker interactions with the tower
