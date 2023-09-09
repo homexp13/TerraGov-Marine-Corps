@@ -47,24 +47,37 @@
 /obj/structure/sensor_tower_infestation/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
 	if(X.status_flags & INCORPOREAL)
 		return FALSE
-	if(!activated && !current_timer)
-		balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
-		return
+	//if(!activated)
+		//balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
+		//return
 	//if(activated)
 		//balloon_alert(user, "This sensor tower is already fully activated, you cannot deactivate it!")
 		//return
 
-	balloon_alert(X, "You begin to stop the activation process!")
+	if(attack_alien_state_check())
+		return
+
+	balloon_alert(X, "You begin to deativate sensor tower!")
 	if(!do_after(X, 5 SECONDS, TRUE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
 		return
 	//if(activated)
 		//balloon_alert(user, "This sensor tower is already fully activated, you cannot deactivate it!")
 		//return
-	if(!current_timer)
-		balloon_alert(X, "This sensor tower is not currently activated")
+	//if(!current_timer)
+		//balloon_alert(X, "This sensor tower is not currently activated")
+		//return
+	if(attack_alien_state_check())
 		return
-	balloon_alert(X, "You stop the activation process!")
+	balloon_alert(X, "You deactivate sensor tower!")
 	deactivate()
+
+/obj/structure/sensor_tower_infestation/proc/attack_alien_state_check()
+	if(activated)
+		return FALSE
+	if(current_timer)
+		return FALSE
+	balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
+	return TRUE
 
 ///Handles attacker interactions with the tower
 /obj/structure/sensor_tower_infestation/proc/interaction(mob/living/user)
@@ -139,11 +152,15 @@
 
 ///Stops timer if activating and sends an alert
 /obj/structure/sensor_tower_infestation/proc/deactivate()
+	if(activated)
+		var/datum/game_mode/infestation/distress/sensor_defence/mode = SSticker.mode
+		mode.sensors_activated -= 1
+	activated = FALSE
 	current_timer = null
+	//balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
 	//already_activated = FALSE
 	//toggle_game_timer()
-	var/datum/game_mode/infestation/distress/sensor_defence/mode = SSticker.mode
-	mode.sensors_activated -= 1
+
 	update_icon()
 
 	//do we need it?
@@ -183,12 +200,12 @@
 
 //Should be in landmarks.dm, but still ok
 
-/obj/effect/landmark/sensor_tower_patrol
+/obj/effect/landmark/sensor_tower_infestation
 	name = "Sensor tower"
 	icon = 'icons/obj/structures/sensor.dmi'
 	icon_state = "sensor_loyalist"
 
-/obj/effect/landmark/sensor_tower_patrol/Initialize()
+/obj/effect/landmark/sensor_tower_infestation/Initialize()
 	..()
-	GLOB.sensor_towers_patrol += loc
+	GLOB.sensor_towers_infestation += loc
 	return INITIALIZE_HINT_QDEL
