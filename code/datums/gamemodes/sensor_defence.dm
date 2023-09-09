@@ -8,12 +8,12 @@
 
 	flags_round_type = MODE_INFESTATION|MODE_LATE_OPENING_SHUTTER_TIMER|MODE_XENO_RULER|MODE_PSY_POINTS|MODE_PSY_POINTS_ADVANCED|MODE_DEAD_GRAB_FORBIDDEN|MODE_HIJACK_POSSIBLE|MODE_SILO_RESPAWN|MODE_SILOS_SPAWN_MINIONS|MODE_ALLOW_XENO_QUICKBUILD
 
-/datum/game_mode/infestation/distress/nuclear_war/post_setup()
+/datum/game_mode/infestation/distress/sensor_defence/post_setup()
 	. = ..()
 	for(var/turf/T AS in GLOB.sensor_towers_infestation)
 		new /obj/structure/sensor_tower_infestation(T)
 
-/datum/game_mode/infestation/distress/nuclear_war/check_finished()
+/datum/game_mode/infestation/distress/sensor_defence/check_finished()
 	if(round_finished)
 		return TRUE
 
@@ -66,11 +66,11 @@
 		return TRUE
 	return FALSE
 
-/datum/game_mode/infestation/distress/nuclear_war/siloless_hive_collapse()
+/datum/game_mode/infestation/distress/sensor_defence/siloless_hive_collapse()
 	return
 
-/datum/game_mode/infestation/distress/nuclear_war/get_siloless_collapse_countdown()
+/datum/game_mode/infestation/distress/sensor_defence/get_siloless_collapse_countdown()
 	return
 
-/datum/game_mode/infestation/distress/nuclear_war/update_silo_death_timer(datum/hive_status/silo_owner)
+/datum/game_mode/infestation/distress/sensor_defence/update_silo_death_timer(datum/hive_status/silo_owner)
 	return

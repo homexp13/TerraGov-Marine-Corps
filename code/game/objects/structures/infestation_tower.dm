@@ -44,26 +44,26 @@
 	interaction(user)
 
 ///Handles xeno interactions with the tower
-/obj/structure/nuclearbomb/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
+/obj/structure/sensor_tower_infestation/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
 	if(X.status_flags & INCORPOREAL)
 		return FALSE
 	if(!activated && !current_timer)
-		balloon_alert(user, "This sensor tower is not activated yet, don't let it be activated!")
+		balloon_alert(X, "This sensor tower is not activated yet, don't let it be activated!")
 		return
 	//if(activated)
 		//balloon_alert(user, "This sensor tower is already fully activated, you cannot deactivate it!")
 		//return
 
-	balloon_alert(user, "You begin to stop the activation process!")
+	balloon_alert(X, "You begin to stop the activation process!")
 	if(!do_after(X, 5 SECONDS, TRUE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
 		return
 	//if(activated)
 		//balloon_alert(user, "This sensor tower is already fully activated, you cannot deactivate it!")
 		//return
 	if(!current_timer)
-		balloon_alert(user, "This sensor tower is not currently activated")
+		balloon_alert(X, "This sensor tower is not currently activated")
 		return
-	balloon_alert(user, "You stop the activation process!")
+	balloon_alert(X, "You stop the activation process!")
 	deactivate()
 
 ///Handles attacker interactions with the tower
@@ -94,7 +94,7 @@
 ///Starts timer and sends an alert
 /obj/structure/sensor_tower_infestation/proc/begin_activation()
 	current_timer = addtimer(CALLBACK(src, PROC_REF(finish_activation)), generate_time, TIMER_STOPPABLE)
-	already_activated = TRUE
+	//already_activated = TRUE
 	//toggle_game_timer()
 	update_icon()
 
