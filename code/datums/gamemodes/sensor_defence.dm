@@ -6,6 +6,14 @@
 	///The amount of activated sensor towers in sensor defence
 	var/sensors_activated = 0
 
+	//larva points generation
+
+	var/larva_points_check_interval = 1 MINUTES
+	///Last time larva balance was checked
+	var/last_larva_points_check
+	///Ponderation rate of sensors output
+	var/sensors_larva_points_scaling = 1.6
+
 	flags_round_type = MODE_INFESTATION|MODE_LATE_OPENING_SHUTTER_TIMER|MODE_XENO_RULER|MODE_PSY_POINTS|MODE_PSY_POINTS_ADVANCED|MODE_DEAD_GRAB_FORBIDDEN|MODE_HIJACK_POSSIBLE|MODE_SILO_RESPAWN|MODE_SILOS_SPAWN_MINIONS|MODE_ALLOW_XENO_QUICKBUILD
 
 /datum/game_mode/infestation/distress/sensor_defence/post_setup()
@@ -65,6 +73,41 @@
 		round_finished = MODE_INFESTATION_X_MAJOR
 		return TRUE
 	return FALSE
+
+/datum/game_mode/infestation/distress/sensor_defence/process()
+	. = ..()
+	if(world.time > last_larva_points_check + larva_points_check_interval)
+		add_larva_points()
+		last_larva_points_check = world.time
+
+/datum/game_mode/infestation/distress/sensor_defence/proc/add_larva_points()
+	//prohibit generation before the shutters open
+	if(!SSsilo.can_fire)
+		return
+
+	//we should not spawn larvas on shipside
+	if(SSmonitor.gamestate == SHIPSIDE)
+		return
+
+	//GLOB.round_statistics.larva_from_silo += current_larva_spawn_rate / xeno_job.job_points_needed TODO: statistic
+
+	var/current_larva_spawn_rate = 0
+
+	var/datum/job/xeno_job = SSjob.GetJobType(/datum/job/xenomorph)
+	var/active_humans = length(GLOB.humans_by_zlevel["2"]) //we should not spawn larvas on shipside anyway
+	var/active_xenos = length(GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL]) + (xeno_job.total_positions - xeno_job.current_positions)
+	//The larval spawn is based on the amount of how much sensors is NOT active
+	current_larva_spawn_rate = (length_char(GLOB.sensor_towers_infestation) - sensors_activated) / length_char(GLOB.sensor_towers_infestation)
+	//We then are normalising with the number of alive marines, so the balance is roughly the same whether or not we are in high pop
+	current_larva_spawn_rate *= SILO_BASE_OUTPUT_PER_MARINE * active_humans
+	current_larva_spawn_rate *= sensors_larva_points_scaling
+	//We scale the rate based on the current ratio of humans to xenos
+	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) / (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.5, 1.2)
+
+	xeno_job.add_job_points(current_larva_spawn_rate)
+
+	var/datum/hive_status/normal_hive = GLOB.hive_datums[XENO_HIVE_NORMAL]
+	normal_hive.update_tier_limits()
 
 /datum/game_mode/infestation/distress/sensor_defence/siloless_hive_collapse()
 	return
