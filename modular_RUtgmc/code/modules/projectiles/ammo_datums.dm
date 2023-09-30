@@ -97,7 +97,8 @@
 /datum/ammo/energy/lasgun/marine/sniper_overcharge
 	name = "sniper overcharge bolt"
 	icon_state = "overchargedlaser"
-	hud_state = "laser_sniper_overcharge"
+	//hud_state = "laser_sniper_overcharge"
+	hud_state = "plasma_rifle"
 	shell_speed = 2.5
 	damage = 130
 	penetration = 80
