@@ -128,6 +128,7 @@ const ItemLine = (props, context) => {
       prod_color,
       prod_name,
       prod_desc,
+      prod_icon,
     },
     cant_buy,
     remaining_points,
@@ -184,6 +185,7 @@ const ItemLine = (props, context) => {
             selected={prod_color === 'white'}>
             Vend
           </Button>
+          <Box as="img" src={`data:image/jpeg;base64,${prod_icon}`} />
         </>
       }
       label={prod_name}

@@ -15,6 +15,7 @@
 		"prod_desc" = initial(record.product_path.desc),\
 		"ref" = REF(record),\
 		"tab" = record.tab,\
+		"icon" = icon2base64(getFlatIcon(image(initial(record.product_path.icon), initial(record.product_path.icon_state)), no_anim = TRUE)),\
 	)
 
 /datum/vending_product

@@ -87,7 +87,19 @@
 		var/p_cost = myprod[3]
 		var/atom/productpath = i
 
-		LAZYADD(.["displayed_records"][category], list(list("prod_index" = i, "prod_name" = p_name, "prod_color" = myprod[4], "prod_cost" = p_cost, "prod_desc" = initial(productpath.desc))))
+		var/prod_icon
+
+		if (ispath(i, /obj/effect/vendor_bundle))
+			var/obj/effect/vendor_bundle/bundle = new i(loc, FALSE)
+			var/list/vended_items = bundle.spawned_gear
+
+			prod_icon = icon2base64(getFlatIcon(image(initial(vended_items[1].icon), initial(vended_items[1].icon_state)), no_anim = TRUE))
+
+			qdel(bundle)
+		else
+			prod_icon = icon2base64(getFlatIcon(image(initial(productpath.icon), initial(productpath.icon_state)), no_anim = TRUE))
+
+		LAZYADD(.["displayed_records"][category], list(list("prod_index" = i, "prod_name" = p_name, "prod_color" = myprod[4], "prod_cost" = p_cost, "prod_desc" = initial(productpath.desc), "prod_icon" = prod_icon)))
 
 /obj/machinery/marine_selector/ui_data(mob/user)
 	. = list()
