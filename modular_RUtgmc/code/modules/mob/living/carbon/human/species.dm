@@ -33,7 +33,7 @@
 		return
 
 	//Responding to a raised hand
-	if(!H.do_actions && do_after(H, 5, EMOTE_ICON_ROCK_PAPER_SCISSORS))
+	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
 	/*
 		if(!(user.do_actions)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_warning("Too slow!"))
@@ -69,8 +69,8 @@
 		H.visible_message(span_notice("[H] plays <b>[protagonist_plays]</b>![winner_text]"), span_notice("You play <b>[protagonist_plays]</b>![winner_text]"))
 		target.visible_message(span_notice("[target] plays <b>[antagonist_plays]</b>![winner_text]"), span_notice("You play <b>[antagonist_plays]</b>![winner_text]"))
 		playsound(target, "clownstep", 35, TRUE)
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), H, 8, play_to_emote[protagonist_plays])
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), target, 8, play_to_emote[antagonist_plays])
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), H, 8, TRUE, target, play_to_emote[protagonist_plays])
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), target, 8, TRUE, target, play_to_emote[antagonist_plays])
 		H.do_attack_animation(target)
 		target.do_attack_animation(H)
 		TIMER_COOLDOWN_START(H, COOLDOWN_EMOTE, 8 SECONDS)
@@ -83,7 +83,7 @@
 		return
 
 	H.visible_message(span_notice("[H] challenges [target] to a game of rock paper scissors!"), span_notice("You challenge [target] to a game of rock paper scissors!"), null, 4)
-	if(!H.do_actions && do_after(H, 50, EMOTE_ICON_ROCK_PAPER_SCISSORS))
+	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
 		to_chat(H, span_notice("You were left hanging!"))
 
 /datum/species/proc/attempt_high_five(mob/living/carbon/human/H, mob/living/carbon/human/target)
@@ -96,7 +96,7 @@
 		return
 
 	//Responding to a raised hand
-	if(!H.do_actions && do_after(H, 5, EMOTE_ICON_HIGHFIVE))
+	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_HIGHFIVE))
 	/*
 		if(!(target.flags_emote & EMOTING_HIGH_FIVE)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_notice("Too slow!"))
@@ -129,7 +129,7 @@
 
 	H.visible_message(span_notice("[H] raises [h_his] hand out for a high five from [target]."), \
 		span_notice("You raise your hand out for a high five from [target]."), null, 4)
-	if(!H.do_actions && do_after(H, 50, EMOTE_ICON_HIGHFIVE))
+	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_HIGHFIVE))
 		to_chat(H, span_notice("You were left hanging!"))
 
 /datum/species/proc/attempt_fist_bump(mob/living/carbon/human/H, mob/living/carbon/human/target)
@@ -142,7 +142,7 @@
 		return
 
 	//Responding to a raised fist
-	if(!H.do_actions && do_after(H, 5, EMOTE_ICON_FISTBUMP))
+	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_FISTBUMP))
 	/*
 		if(!(H.do_actions)) //Additional check for if the target moved or was already fistbumped.
 			to_chat(H, span_notice("Too slow!"))
@@ -171,5 +171,5 @@
 
 	H.visible_message(span_notice("[H] raises [h_his] fist out for a fistbump from [target]."), \
 		span_notice("You raise your fist out for a fistbump from [target]."), null, 4)
-	if(!H.do_actions && do_after(H, 50, EMOTE_ICON_FISTBUMP))
+	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_FISTBUMP))
 		to_chat(H, span_notice("You were left hanging!"))
