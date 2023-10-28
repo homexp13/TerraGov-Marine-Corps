@@ -258,3 +258,10 @@
 /image/progdisplay/unskilled
 	icon_state = "busy_questionmark"
 
+/image/progdisplay/
+	icon = 'modular_RUtgmc/icons/effects/progressicons.dmi'
+	icon_state = "busy_generic"
+	appearance_flags = APPEARANCE_UI|KEEP_APART|TILE_BOUND
+	alpha = 255
+	pixel_y = 32
+

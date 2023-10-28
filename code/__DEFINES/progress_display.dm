@@ -38,3 +38,12 @@
 #define BUSY_ICON_DANGER /image/progdisplay/danger
 #define BUSY_ICON_BAR /image/progdisplay/bar
 #define BUSY_ICON_UNSKILLED /image/progdisplay/unskilled
+
+#define EMOTE_ICON_HIGHFIVE /image/progdisplay
+#define EMOTE_ICON_FISTBUMP /image/progdisplay
+#define EMOTE_ICON_HEADBUTT /image/progdisplay
+#define EMOTE_ICON_TAILSWIPE /image/progdisplay
+#define EMOTE_ICON_ROCK_PAPER_SCISSORS /image/progdisplay
+#define EMOTE_ICON_ROCK /image/progdisplay
+#define EMOTE_ICON_PAPER /image/progdisplay
+#define EMOTE_ICON_SCISSORS /image/progdisplay
