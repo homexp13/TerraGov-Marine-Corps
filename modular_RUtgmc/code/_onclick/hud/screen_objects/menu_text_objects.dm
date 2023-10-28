@@ -18,8 +18,8 @@
 	maptext = "<span class='maptext' style=font-size:8px>ВЫ: НЕ ГОТОВЫ</span>"
 
 /atom/movable/screen/text/lobby/clickable/ready/set_text()
-	var/mob/new_player/player = hud.mymob
-	maptext = "<span class='maptext' style=font-size:8px>ВЫ: [player.ready ? "" : "НЕ "]ГОТОВЫ</span>"
+	var/mob/new_player/player = hud?.mymob
+	maptext = "<span class='maptext' style=font-size:8px>ВЫ: [player?.ready ? "" : "НЕ "]ГОТОВЫ</span>"
 
 /atom/movable/screen/text/lobby/clickable/manifest
 	maptext = "<span class='maptext' style=font-size:8px>СПИСОК ИГРОКОВ</span>"
@@ -31,8 +31,8 @@
 	maptext = "<span class='maptext' style=font-size:8px>ЛОГ ИЗМЕНЕНИЙ</span>"
 
 /atom/movable/screen/text/lobby/clickable/polls/fetch_polls()
-	var/mob/new_player/player = hud.mymob
-	var/hasnewpolls = player.check_playerpolls()
+	var/mob/new_player/player = hud?.mymob
+	var/hasnewpolls = player?.check_playerpolls()
 	if(isnull(hasnewpolls))
 		maptext = "<span class='maptext' style=font-size:8px>НЕТ БАЗЫ ДАННЫХ!</span>"
 		return
