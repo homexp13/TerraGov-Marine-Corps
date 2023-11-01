@@ -20,6 +20,7 @@
 #include "code\datums\jobs\job\xenomorph.dm"
 #include "code\datums\status_effects\xeno_buffs.dm"
 #include "code\datums\skills.dm"
+#include "code\datums\progressbar.dm"
 #include "code\game\atoms.dm"
 #include "code\game\buckling.dm"
 #include "code\game\data_huds.dm"
