@@ -20,7 +20,6 @@
 	else if(H.zone_selected in list("l_hand", "r_hand"))
 		attempt_fist_bump(H, target)
 		return
-
 	return ..()
 
 /datum/species/proc/attempt_rock_paper_scissors(mob/living/carbon/human/H, mob/living/carbon/human/target)
@@ -33,12 +32,11 @@
 		return
 
 	//Responding to a raised hand
-	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
-	/*
-		if(!(user.do_actions)) //Additional check for if the target moved or was already high fived.
+	if(target.flags_emote & EMOTING_ROCK_PAPER_SCISSORS && do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
+		if(!(target.flags_emote & EMOTING_ROCK_PAPER_SCISSORS)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_warning("Too slow!"))
 			return
-	*/
+		target.flags_emote &= ~EMOTING_ROCK_PAPER_SCISSORS
 		var/static/list/game_quips = list("Rock...", "Paper...", "Scissors...", "Shoot!")
 		for(var/quip in game_quips)
 			if(!H.Adjacent(target))
@@ -83,8 +81,10 @@
 		return
 
 	H.visible_message(span_notice("[H] challenges [target] to a game of rock paper scissors!"), span_notice("You challenge [target] to a game of rock paper scissors!"), null, 4)
-	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
+	H.flags_emote |= EMOTING_ROCK_PAPER_SCISSORS
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS) && H.flags_emote & EMOTING_ROCK_PAPER_SCISSORS)
 		to_chat(H, span_notice("You were left hanging!"))
+	H.flags_emote &= ~EMOTING_ROCK_PAPER_SCISSORS
 
 /datum/species/proc/attempt_high_five(mob/living/carbon/human/H, mob/living/carbon/human/target)
 	if(!H.get_limb("r_hand") && !H.get_limb("l_hand"))
@@ -96,13 +96,11 @@
 		return
 
 	//Responding to a raised hand
-	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_HIGHFIVE))
-	/*
+	if((target.flags_emote & EMOTING_HIGH_FIVE) && do_after(H, 5, TRUE, target, EMOTE_ICON_HIGHFIVE))
 		if(!(target.flags_emote & EMOTING_HIGH_FIVE)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_notice("Too slow!"))
 			return
 		target.flags_emote &= ~EMOTING_HIGH_FIVE
-	*/
 		var/extra_quip = ""
 		if(prob(10))
 			extra_quip = pick(" Down low!", " Eiffel Tower!")
@@ -129,8 +127,10 @@
 
 	H.visible_message(span_notice("[H] raises [h_his] hand out for a high five from [target]."), \
 		span_notice("You raise your hand out for a high five from [target]."), null, 4)
-	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_HIGHFIVE))
+	H.flags_emote |= EMOTING_HIGH_FIVE
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_HIGHFIVE) && H.flags_emote & EMOTING_HIGH_FIVE)
 		to_chat(H, span_notice("You were left hanging!"))
+	H.flags_emote &= ~EMOTING_HIGH_FIVE
 
 /datum/species/proc/attempt_fist_bump(mob/living/carbon/human/H, mob/living/carbon/human/target)
 	if(!H.get_limb("r_hand") && !H.get_limb("l_hand"))
@@ -142,13 +142,11 @@
 		return
 
 	//Responding to a raised fist
-	if(!H.do_actions && do_after(H, 5, TRUE, target, EMOTE_ICON_FISTBUMP))
-	/*
-		if(!(H.do_actions)) //Additional check for if the target moved or was already fistbumped.
+	if((target.flags_emote & EMOTING_FIST_BUMP) && do_after(H, 5, TRUE, target, EMOTE_ICON_FISTBUMP))
+		if(!(target.flags_emote & EMOTING_FIST_BUMP)) //Additional check for if the target moved or was already fistbumped.
 			to_chat(H, span_notice("Too slow!"))
 			return
 		target.flags_emote &= ~EMOTING_FIST_BUMP
-	*/
 		H.visible_message(span_notice("[H] gives [target] a fistbump!"), \
 			span_notice("You give [target] a fistbump!"), null, 4)
 		playsound(target, 'sound/effects/thud.ogg', 40, 1)
@@ -171,5 +169,7 @@
 
 	H.visible_message(span_notice("[H] raises [h_his] fist out for a fistbump from [target]."), \
 		span_notice("You raise your fist out for a fistbump from [target]."), null, 4)
-	if(!H.do_actions && do_after(H, 50, TRUE, target, EMOTE_ICON_FISTBUMP))
+	H.flags_emote |= EMOTING_FIST_BUMP
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_FISTBUMP) && H.flags_emote & EMOTING_FIST_BUMP)
 		to_chat(H, span_notice("You were left hanging!"))
+	H.flags_emote &= ~EMOTING_FIST_BUMP
