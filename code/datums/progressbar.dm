@@ -257,3 +257,4 @@
 
 /image/progdisplay/unskilled
 	icon_state = "busy_questionmark"
+
