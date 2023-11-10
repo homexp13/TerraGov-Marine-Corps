@@ -85,8 +85,8 @@
 			apply_damage(damage, BRUTE, blocked = MELEE, updating_health = TRUE)
 
 /mob/living/carbon/xenomorph/proc/attempt_headbutt(mob/living/carbon/xenomorph/target)
-	//Responding to a raised head do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
-	if(target.flags_emote & EMOTING_HEADBUTT && do_after(src, 5, TRUE, target, EMOTE_ICON_HEADBUTT))
+	//Responding to a raised head
+	if(target.flags_emote & EMOTING_HEADBUTT && do_after(src, 5, TRUE, target, EMOTE_ICON_HEADBUTT, null, PROGRESS_NULLABLE))
 		if(!(target.flags_emote & EMOTING_HEADBUTT)) //Additional check for if the target moved or was already headbutted.
 			to_chat(src, span_notice("Too slow!"))
 			return
@@ -108,13 +108,13 @@
 	visible_message(span_notice("[src] raises their head for a headbutt from [target]."), \
 		span_notice("You raise your head for a headbutt from [target]."), null, 4)
 	flags_emote |= EMOTING_HEADBUTT
-	if(do_after(src, 50, TRUE, target, EMOTE_ICON_HEADBUTT) && flags_emote & EMOTING_HEADBUTT)
+	if(do_after(src, 50, TRUE, target, EMOTE_ICON_HEADBUTT, null, PROGRESS_NULLABLE) && flags_emote & EMOTING_HEADBUTT)
 		to_chat(src, span_notice("You were left hanging!"))
 	flags_emote &= ~EMOTING_HEADBUTT
 
 /mob/living/carbon/xenomorph/proc/attempt_tailswipe(mob/living/carbon/xenomorph/target)
 	//Responding to a raised tail
-	if(target.flags_emote & EMOTING_TAIL_SWIPE && do_after(src, 5, TRUE, target, EMOTE_ICON_TAILSWIPE))
+	if(target.flags_emote & EMOTING_TAIL_SWIPE && do_after(src, 5, TRUE, target, EMOTE_ICON_TAILSWIPE, null, PROGRESS_NULLABLE))
 		if(!(target.flags_emote & EMOTING_TAIL_SWIPE)) //Additional check for if the target moved or was already tail swiped.
 			to_chat(src, span_notice("Too slow!"))
 			return
@@ -136,6 +136,6 @@
 	visible_message(span_notice("[src] raises their tail out for a swipe from [target]."), \
 		span_notice("You raise your tail out for a tail swipe from [target]."), null, 4)
 	flags_emote |= EMOTING_TAIL_SWIPE
-	if(do_after(src, 50, TRUE, target, EMOTE_ICON_TAILSWIPE) && flags_emote & EMOTING_TAIL_SWIPE)
+	if(do_after(src, 50, TRUE, target, EMOTE_ICON_TAILSWIPE, null, PROGRESS_NULLABLE) && flags_emote & EMOTING_TAIL_SWIPE)
 		to_chat(src, span_notice("You were left hanging!"))
 	flags_emote &= ~EMOTING_TAIL_SWIPE

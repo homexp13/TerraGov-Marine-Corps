@@ -32,7 +32,7 @@
 		return
 
 	//Responding to a raised hand
-	if(target.flags_emote & EMOTING_ROCK_PAPER_SCISSORS && do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS))
+	if(target.flags_emote & EMOTING_ROCK_PAPER_SCISSORS && do_after(H, 5, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS, null, PROGRESS_NULLABLE))
 		if(!(target.flags_emote & EMOTING_ROCK_PAPER_SCISSORS)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_warning("Too slow!"))
 			return
@@ -67,8 +67,8 @@
 		H.visible_message(span_notice("[H] plays <b>[protagonist_plays]</b>![winner_text]"), span_notice("You play <b>[protagonist_plays]</b>![winner_text]"))
 		target.visible_message(span_notice("[target] plays <b>[antagonist_plays]</b>![winner_text]"), span_notice("You play <b>[antagonist_plays]</b>![winner_text]"))
 		playsound(target, "clownstep", 35, TRUE)
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), H, 8, TRUE, target, play_to_emote[protagonist_plays])
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), target, 8, TRUE, target, play_to_emote[antagonist_plays])
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), H, 8, TRUE, target, play_to_emote[protagonist_plays], null, PROGRESS_NULLABLE)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_after), target, 8, TRUE, target, play_to_emote[antagonist_plays], null, PROGRESS_NULLABLE)
 		H.do_attack_animation(target)
 		target.do_attack_animation(H)
 		TIMER_COOLDOWN_START(H, COOLDOWN_EMOTE, 8 SECONDS)
@@ -82,7 +82,7 @@
 
 	H.visible_message(span_notice("[H] challenges [target] to a game of rock paper scissors!"), span_notice("You challenge [target] to a game of rock paper scissors!"), null, 4)
 	H.flags_emote |= EMOTING_ROCK_PAPER_SCISSORS
-	if(do_after(H, 50, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS) && H.flags_emote & EMOTING_ROCK_PAPER_SCISSORS)
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_ROCK_PAPER_SCISSORS, null, PROGRESS_NULLABLE) && H.flags_emote & EMOTING_ROCK_PAPER_SCISSORS)
 		to_chat(H, span_notice("You were left hanging!"))
 	H.flags_emote &= ~EMOTING_ROCK_PAPER_SCISSORS
 
@@ -96,7 +96,7 @@
 		return
 
 	//Responding to a raised hand
-	if((target.flags_emote & EMOTING_HIGH_FIVE) && do_after(H, 5, TRUE, target, EMOTE_ICON_HIGHFIVE))
+	if((target.flags_emote & EMOTING_HIGH_FIVE) && do_after(H, 5, TRUE, target, EMOTE_ICON_HIGHFIVE, null, PROGRESS_NULLABLE))
 		if(!(target.flags_emote & EMOTING_HIGH_FIVE)) //Additional check for if the target moved or was already high fived.
 			to_chat(H, span_notice("Too slow!"))
 			return
@@ -128,7 +128,7 @@
 	H.visible_message(span_notice("[H] raises [h_his] hand out for a high five from [target]."), \
 		span_notice("You raise your hand out for a high five from [target]."), null, 4)
 	H.flags_emote |= EMOTING_HIGH_FIVE
-	if(do_after(H, 50, TRUE, target, EMOTE_ICON_HIGHFIVE) && H.flags_emote & EMOTING_HIGH_FIVE)
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_HIGHFIVE, null, PROGRESS_NULLABLE) && H.flags_emote & EMOTING_HIGH_FIVE)
 		to_chat(H, span_notice("You were left hanging!"))
 	H.flags_emote &= ~EMOTING_HIGH_FIVE
 
@@ -142,7 +142,7 @@
 		return
 
 	//Responding to a raised fist
-	if((target.flags_emote & EMOTING_FIST_BUMP) && do_after(H, 5, TRUE, target, EMOTE_ICON_FISTBUMP))
+	if((target.flags_emote & EMOTING_FIST_BUMP) && do_after(H, 5, TRUE, target, EMOTE_ICON_FISTBUMP, null, PROGRESS_NULLABLE))
 		if(!(target.flags_emote & EMOTING_FIST_BUMP)) //Additional check for if the target moved or was already fistbumped.
 			to_chat(H, span_notice("Too slow!"))
 			return
@@ -170,6 +170,6 @@
 	H.visible_message(span_notice("[H] raises [h_his] fist out for a fistbump from [target]."), \
 		span_notice("You raise your fist out for a fistbump from [target]."), null, 4)
 	H.flags_emote |= EMOTING_FIST_BUMP
-	if(do_after(H, 50, TRUE, target, EMOTE_ICON_FISTBUMP) && H.flags_emote & EMOTING_FIST_BUMP)
+	if(do_after(H, 50, TRUE, target, EMOTE_ICON_FISTBUMP, null, PROGRESS_NULLABLE) && H.flags_emote & EMOTING_FIST_BUMP)
 		to_chat(H, span_notice("You were left hanging!"))
 	H.flags_emote &= ~EMOTING_FIST_BUMP

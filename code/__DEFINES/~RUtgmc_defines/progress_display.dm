@@ -1,3 +1,4 @@
+#define PROGRESS_NULLABLE /datum/progressbar/nullable
 #define EMOTE_ICON_HIGHFIVE /image/progdisplay/interactions/highfive
 #define EMOTE_ICON_FISTBUMP /image/progdisplay/interactions/fistbump
 #define EMOTE_ICON_HEADBUTT /image/progdisplay/interactions/headbutt
