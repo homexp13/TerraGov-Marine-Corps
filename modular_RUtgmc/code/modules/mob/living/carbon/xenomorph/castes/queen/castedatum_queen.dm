@@ -1,5 +1,9 @@
 /datum/xeno_caste/queen
 
+	max_health = 600
+
+	sunder_recover = 1.5
+
 	actions = list(
 		/datum/action/xeno_action/xeno_resting,
 		/datum/action/xeno_action/activable/psydrain,
@@ -26,6 +30,7 @@
 		/datum/action/xeno_action/set_xeno_lead,
 		/datum/action/xeno_action/activable/queen_give_plasma,
 		/datum/action/xeno_action/hive_message,
+		/datum/action/xeno_action/rally_minion,
 		/datum/action/xeno_action/rally_hive,
 		/datum/action/xeno_action/activable/command_minions,
 	)
@@ -59,6 +64,7 @@
 		/datum/action/xeno_action/set_xeno_lead,
 		/datum/action/xeno_action/activable/queen_give_plasma,
 		/datum/action/xeno_action/hive_message,
+		/datum/action/xeno_action/rally_minion,
 		/datum/action/xeno_action/rally_hive,
 		/datum/action/xeno_action/activable/command_minions,
 		/datum/action/xeno_action/ready_charge/queen_charge,
