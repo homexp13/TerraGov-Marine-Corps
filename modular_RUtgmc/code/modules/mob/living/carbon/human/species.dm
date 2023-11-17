@@ -20,7 +20,8 @@
 	else if(H.zone_selected in list("l_hand", "r_hand"))
 		attempt_fist_bump(H, target)
 		return
-	return ..()
+	..()
+	playsound(H.loc, 'sound/weapons/thudswoosh.ogg', 25, TRUE, 5)
 
 /datum/species/proc/attempt_rock_paper_scissors(mob/living/carbon/human/H, mob/living/carbon/human/target)
 	if(!H.get_limb("r_hand") && !H.get_limb("l_hand"))
