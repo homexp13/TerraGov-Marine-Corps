@@ -198,3 +198,7 @@
 	name = "Radio Operator Pack"
 	contains = list(/obj/item/storage/backpack/marine/radiopack)
 	cost = 20
+
+/datum/supply_packs/weapons/xray_gun
+	contains = list(/obj/item/weapon/gun/energy/lasgun/lasrifle/xray)
+	cost = 500
