@@ -196,4 +196,5 @@
 #include "code\modules\reagents\reactions\medical.dm"
 #include "code\datums\status_effects\debuffs.dm"
 #include "code\modules\mob\living\carbon\xenomorph\castes\king\abilities_king.dm"
+#include "code\modules\requisitions\fulton.dm"
 #include "code\game\objects\structures\barricade.dm"
