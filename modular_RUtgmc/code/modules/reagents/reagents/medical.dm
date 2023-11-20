@@ -12,7 +12,7 @@
 
 ///SYNAPTIZINE
 /datum/reagent/medicine/synaptizine
-	custom_metabolism = REAGENTS_METABOLISM * 1.5
+	custom_metabolism = REAGENTS_METABOLISM * 2
 	purge_list = list(/datum/reagent/toxin/mindbreaker, /datum/reagent/medicine/ryetalyn) //RUTGMC EDIT
 	purge_rate = 6
 
@@ -77,7 +77,6 @@
 	scannable = TRUE
 
 /datum/reagent/medicine/arithrazine/on_mob_life(mob/living/L)
-	L.adjustToxLoss(1*effect_str)
 	L.adjustOxyLoss(-5*effect_str)
 	L.adjustStaminaLoss(5 * effect_str)
 	ADD_TRAIT(L, TRAIT_INTOXICATION_RESISTANT, REAGENT_TRAIT(src))
