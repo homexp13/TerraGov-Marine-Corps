@@ -198,3 +198,4 @@
 #include "code\modules\mob\living\carbon\xenomorph\castes\king\abilities_king.dm"
 #include "code\modules\requisitions\fulton.dm"
 #include "code\game\objects\structures\barricade.dm"
+#include "code\datums\keybinding\xeno.dm"
