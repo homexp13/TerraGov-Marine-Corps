@@ -130,18 +130,13 @@ GLOBAL_LIST_INIT(medic_gear_listed_products, list(
 		//RUTGMC EDIT ADDITION  END
 	))
 
-GLOBAL_LIST_INIT(leader_gear_listed_products, list(
+/* GLOBAL_LIST_INIT(leader_gear_listed_products, list(
 		/obj/effect/vendor_bundle/leader = list(CAT_ESS, "Essential SL Set", 0, "white"),
 		/obj/item/whistle = list(CAT_LEDSUP, "Whistle", 5, "black"),
 		/obj/item/beacon/supply_beacon = list(CAT_LEDSUP, "Supply beacon", 10, "black"),
-		//RUTGMC EDIT ADDITION BEGIN - ORBITAL_BEACON
-		/obj/item/beacon/orbital_bombardment_beacon = list(CAT_LEDSUP, "Orbital beacon", 15, "black"),
-		//RUTGMC EDIT ADDITION END
 		/obj/item/fulton_extraction_pack = list(CAT_LEDSUP, "Fulton Extraction Pack", 20, "orange"),
 		/obj/item/deployable_camera = list(CAT_LEDSUP, "Deployable Overwatch Camera", 2, "orange"),
-		//RUTGMC EDIT ADDITION BEGIN - SWORDS
-		/obj/item/storage/holster/blade/officer/valirapier/full = list(CAT_LEDSUP, "Vali Harvester rapier", 25, "black"),
-		//RUTGMC EDIT ADDITION END
+		/obj/item/megaphone = list(CAT_LEDSUP, "Megaphone", 5, "orange"),
 		/obj/item/stack/sandbags_empty/half = list(CAT_LEDSUP, "Sandbags x25", SANDBAG_PRICE_IN_GEAR_VENDOR, "black"),
 		/obj/item/explosive/plastique = list(CAT_LEDSUP, "Plastique explosive", 2, "black"),
 		/obj/item/detpack = list(CAT_LEDSUP, "Detonation pack", 5, "black"),
@@ -155,14 +150,10 @@ GLOBAL_LIST_INIT(leader_gear_listed_products, list(
 		/obj/item/ammo_magazine/flamer_tank/large = list(CAT_LEDSUP, "Flamethrower tank", 4, "black"),
 		/obj/item/storage/backpack/marine/radiopack = list(CAT_LEDSUP, "Radio Pack", 15, "black"),
 		/obj/item/weapon/gun/revolver/standard_magnum = list(CAT_LEDSUP, "R-76 Magnum", 12, "black"),
-		/obj/item/weapon/gun/rifle/tx55 = list(CAT_LEDSUP, "AR-55 OICW Rifle", 25, "black"),
-		/obj/item/ammo_magazine/rifle/tx54 = list(CAT_LEDSUP, "GL-54 Flak Magazine for AR-55/GL-54", 5, "black"),
-		/obj/item/ammo_magazine/rifle/tx54/smoke = list(CAT_LEDSUP, "GL-54 tactical smoke Magazine for AR-55/GL-54", 3, "black"),
-		/obj/item/ammo_magazine/rifle/tx54/smoke/tangle = list(CAT_LEDSUP, "GL-54 Tanglefoot Magazine for AR-55/GL-54", 12, "black"),
 		/obj/item/storage/firstaid/adv = list(CAT_LEDSUP, "Advanced firstaid kit", 10, "orange"),
 		/obj/item/reagent_containers/hypospray/autoinjector/synaptizine = list(CAT_LEDSUP, "Injector (Synaptizine)", 10, "black"),
 		/obj/item/reagent_containers/hypospray/autoinjector/combat_advanced = list(CAT_LEDSUP, "Injector (Advanced)", 15, "orange"),
-	))
+	)) */
 
 GLOBAL_LIST_INIT(commander_gear_listed_products, list(
 		/obj/effect/vendor_bundle/commander = list(CAT_ESS, "Essential FC Set", 0, "white"),
