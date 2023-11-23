@@ -13,3 +13,4 @@
 #include "calibers.dm"
 #include "skills.dm"
 #include "progress_display.dm"
+#include "loadout.dm"
