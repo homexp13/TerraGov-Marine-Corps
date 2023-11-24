@@ -6,7 +6,7 @@
 	obj_flags = NONE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
-	resistance_flags = RESIST_ALL
+	resistance_flags = RESIST_ALL | DROPSHIP_IMMUNE
 	///The timer for when the sensor tower activates
 	var/current_timer
 	///Time it takes for the sensor tower to fully activate
