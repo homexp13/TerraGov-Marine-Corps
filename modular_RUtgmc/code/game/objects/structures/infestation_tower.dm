@@ -66,7 +66,7 @@
 		return
 
 	balloon_alert(X, "You begin to deativate sensor tower!")
-	if(!do_after(X, 5 SECONDS, TRUE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
+	if(!do_after(X, deactivate_time, TRUE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
 		return
 
 	if(attack_alien_state_check(X))
@@ -147,15 +147,15 @@
 /obj/structure/sensor_tower_infestation/proc/update_control_minimap_icon()
 	SSminimaps.remove_marker(src)
 	if(activated)
-		SSminimaps.add_marker(src, MINIMAP_FLAG_ALL, image('icons/UI_icons/map_blips.dmi', null, "relay_1_on_full")) //TODO: change icons
+		SSminimaps.add_marker(src, MINIMAP_FLAG_ALL, image('modular_RUtgmc/icons/UI_icons/map_blips.dmi', null, "tower_infestation_on_full"))
 	else
-		SSminimaps.add_marker(src, MINIMAP_FLAG_ALL, image('icons/UI_icons/map_blips.dmi', null, "relay_1[current_timer ? "_on" : "_off"]")) //TODO: change icons
+		SSminimaps.add_marker(src, MINIMAP_FLAG_ALL, image('modular_RUtgmc/icons/UI_icons/map_blips.dmi', null, "tower_infestation[current_timer ? "_on" : "_off"]"))
 
 /obj/structure/sensor_tower_infestation/process()
 	if(add_tick >= required_ticks)
 		SSpoints.supply_points[FACTION_TERRAGOV] += points_income
 		SSpoints.dropship_points += dropship_bonus
-		GLOB.round_statistics.points_from_mining += points_income // TODO: make own statisticc
+		GLOB.round_statistics.points_from_towers += points_income
 		do_sparks(5, TRUE, src)
 		say("Scientific data has been sold for [points_income] points.")
 		add_tick = 0

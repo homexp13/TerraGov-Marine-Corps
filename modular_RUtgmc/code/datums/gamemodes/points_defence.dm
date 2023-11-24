@@ -17,7 +17,7 @@
 	///Last time larva balance was checked
 	var/last_larva_points_check
 	///Ponderation rate of sensors output
-	var/sensors_larva_points_scaling = 1.6
+	var/sensors_larva_points_scaling = 2
 
 	flags_round_type = MODE_INFESTATION|MODE_LATE_OPENING_SHUTTER_TIMER|MODE_XENO_RULER|MODE_PSY_POINTS|MODE_PSY_POINTS_ADVANCED|MODE_DEAD_GRAB_FORBIDDEN|MODE_HIJACK_POSSIBLE|MODE_SILO_RESPAWN|MODE_SILOS_SPAWN_MINIONS|MODE_ALLOW_XENO_QUICKBUILD
 
@@ -106,8 +106,6 @@
 	if(SSmonitor.gamestate == SHIPSIDE)
 		return
 
-	//GLOB.round_statistics.larva_from_silo += current_larva_spawn_rate / xeno_job.job_points_needed TODO: statistic
-
 	var/current_larva_spawn_rate = 0
 
 	var/datum/job/xeno_job = SSjob.GetJobType(/datum/job/xenomorph)
@@ -120,6 +118,8 @@
 	current_larva_spawn_rate *= sensors_larva_points_scaling
 	//We scale the rate based on the current ratio of humans to xenos
 	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) / (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.5, 1.2)
+
+	GLOB.round_statistics.larva_from_towers += current_larva_spawn_rate / xeno_job.job_points_needed
 
 	xeno_job.add_job_points(current_larva_spawn_rate)
 
