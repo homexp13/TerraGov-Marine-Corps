@@ -1,7 +1,7 @@
 /obj/structure/sensor_tower_infestation
 	name = "sensor tower"
 	desc = "A tall tower with a sensor array at the top and a control box at the bottom. Has a lengthy activation process."
-	icon = 'icons/obj/structures/sensor.dmi'  //TODO:  change icons
+	icon = 'modular_RUtgmc/icons/obj/structures/sensor.dmi'
 	icon_state = "sensor"
 	obj_flags = NONE
 	density = TRUE
