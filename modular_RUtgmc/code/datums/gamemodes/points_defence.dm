@@ -24,13 +24,9 @@
 /datum/game_mode/infestation/distress/points_defence/post_setup()
 	. = ..()
 	for(var/atom/A AS in GLOB.miners_phorone)
-		if(!QDELETED(A))
-			GLOB.miners_phorone -= A
-			qdel(A)
+		qdel(A)
 	for(var/atom/A AS in GLOB.miners_platinum)
-		if(!QDELETED(A))
-			GLOB.miners_platinum -= A
-			qdel(A)
+		qdel(A)
 
 	for(var/i in 1 to phorone_sensors)
 		var/turf/T = pick(GLOB.miner_phorone_locs)
