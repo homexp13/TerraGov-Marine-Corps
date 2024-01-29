@@ -97,15 +97,13 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(M.id == id)
 			return M
-	if(id != null) // RUTGMC ADDITION, null shuttle id warnings removal
-		WARNING("couldn't find shuttle with id: [id]")
+	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	if(id != null) // RUTGMC ADDITION, null shuttle id warnings removal
-		WARNING("couldn't find dock with id: [id]")
+	WARNING("couldn't find dock with id: [id]")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
