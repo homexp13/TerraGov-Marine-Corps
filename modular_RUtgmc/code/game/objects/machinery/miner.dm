@@ -37,11 +37,11 @@
 /obj/machinery/miner/Destroy()
 	qdel(camera)
 	camera = null
-	..()
 	if(mineral_value >= PLATINUM_CRATE_SELL_AMOUNT)
 		GLOB.miners_platinum -= src
 	else
 		GLOB.miners_phorone -= src
+	return ..()
 
 /obj/machinery/miner/attack_ai(mob/user)
 	return attack_hand(user)
