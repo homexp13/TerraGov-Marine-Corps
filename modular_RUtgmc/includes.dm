@@ -57,6 +57,7 @@
 #include "code\game\objects\effects\landmarks\landmarks.dm"
 #include "code\game\objects\effects\landmarks\marine_spawns.dm"
 #include "code\game\objects\items\bodybag.dm"
+#include "code\game\objects\items\cards_ids.dm"
 #include "code\game\objects\items\defibrillator.dm"
 #include "code\game\objects\items\items.dm"
 #include "code\game\objects\items\misc.dm"
