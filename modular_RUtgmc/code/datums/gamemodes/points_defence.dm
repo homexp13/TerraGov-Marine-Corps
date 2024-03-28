@@ -9,7 +9,8 @@
 
 	var/victory_condition_sensors_amount = 4
 	var/phorone_sensors = 2
-	var/platinum_sensors = 2
+	//the number of sensors is greater than necessary to win, so that the late game does not turn into a 1 point defense
+	var/platinum_sensors = 3
 
 	//larva points generation
 
@@ -17,7 +18,7 @@
 	///Last time larva balance was checked
 	var/last_larva_points_check
 	///Ponderation rate of sensors output
-	var/sensors_larva_points_scaling = 2
+	var/sensors_larva_points_scaling = 2.4
 
 	flags_round_type = MODE_INFESTATION|MODE_LATE_OPENING_SHUTTER_TIMER|MODE_XENO_RULER|MODE_PSY_POINTS|MODE_PSY_POINTS_ADVANCED|MODE_DEAD_GRAB_FORBIDDEN|MODE_HIJACK_POSSIBLE|MODE_SILO_RESPAWN|MODE_SILOS_SPAWN_MINIONS|MODE_ALLOW_XENO_QUICKBUILD
 
