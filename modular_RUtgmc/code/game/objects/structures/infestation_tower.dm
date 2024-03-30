@@ -27,7 +27,7 @@
 	///Tracks how many ticks have passed since we last added a sheet of material
 	var/add_tick = 0
 	///How many times we neeed to tick for a resource to be created, in this case this is 2* the specified amount
-	var/required_ticks = 30
+	var/required_ticks = 20
 	///The amount of profit, less useful than phoron miners
 	var/points_income = 240
 	///Applies the actual bonus points for the dropship for each sale, even much more than miners
