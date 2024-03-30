@@ -66,7 +66,7 @@
 		return
 
 	balloon_alert(X, "You begin to deativate sensor tower!")
-	if(!do_after(X, deactivate_time, TRUE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
+	if(!do_after(X, deactivate_time, NONE, src, BUSY_ICON_DANGER, BUSY_ICON_HOSTILE))
 		return
 
 	if(attack_alien_state_check(X))
@@ -87,7 +87,7 @@
 	if(!attacker_state_check(user))
 		return
 	balloon_alert_to_viewers("Activating sensor tower...")
-	if(!do_after(user, activate_time, TRUE, src))
+	if(!do_after(user, activate_time, NONE, src))
 		return
 	if(!attacker_state_check(user))
 		return
