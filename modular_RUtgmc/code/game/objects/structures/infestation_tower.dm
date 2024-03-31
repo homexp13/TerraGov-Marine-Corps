@@ -31,7 +31,7 @@
 	///The amount of profit, less useful than phoron miners
 	var/points_income = 240
 	///Applies the actual bonus points for the dropship for each sale, even much more than miners
-	var/dropship_bonus = 20
+	var/dropship_bonus = 40
 
 /obj/structure/sensor_tower_infestation/Initialize()
 	. = ..()

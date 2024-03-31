@@ -7,10 +7,10 @@
 
 	var/sensors_activated = 0
 
-	var/victory_condition_sensors_amount = 4
+	var/victory_condition_sensors_amount = 3
 	var/phorone_sensors = 2
 	//the number of sensors is greater than necessary to win, so that the late game does not turn into a 1 point defense
-	var/platinum_sensors = 3
+	var/platinum_sensors = 2
 
 	//larva points generation
 
