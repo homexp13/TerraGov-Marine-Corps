@@ -118,7 +118,7 @@
 	current_larva_spawn_rate *= SILO_BASE_OUTPUT_PER_MARINE * active_humans
 	current_larva_spawn_rate *= sensors_larva_points_scaling
 	//We scale the rate based on the current ratio of humans to xenos
-	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) / (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.5, 1.2)
+	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) * (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.4, 1.4)
 
 	GLOB.round_statistics.larva_from_towers += current_larva_spawn_rate / xeno_job.job_points_needed
 
