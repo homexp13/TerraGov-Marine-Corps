@@ -1,7 +1,7 @@
 /datum/game_mode/infestation/distress/points_defence
 	name = "Points Defence"
 	config_tag = "Points Defence"
-	silo_scaling = 0.4 //do you really need a silo?
+	silo_scaling = 0.6 //do you really need a silo?
 
 	///The amount of sensor towers in sensor defence
 
