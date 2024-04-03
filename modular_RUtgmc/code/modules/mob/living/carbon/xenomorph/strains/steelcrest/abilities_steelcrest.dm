@@ -168,14 +168,14 @@
 
 /datum/action/ability/activable/xeno/headbutt
 	name = "Headbutt"
-	action_icon_state = "fling" //change it TODO
+	action_icon_state = "headbutt" //change it TODO
 	desc = "Headbutts into the designated target"
 	cooldown_duration = 10 SECONDS
 	ability_cost = 35
 	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
 	//change it TODO
 	keybinding_signals = list(
-		KEYBINDING_NORMAL = COMSIG_XENOABILITY_PSYCHIC_FLING,
+		KEYBINDING_NORMAL = COMSIG_XENOABILITY_STEELCREST_HEADBUTT,
 	)
 	target_flags = ABILITY_MOB_TARGET
 
@@ -232,14 +232,14 @@
 
 /datum/action/ability/xeno_action/soak
 	name = "soak"
-	action_icon_state = "fling" //change it TODO
+	action_icon_state = "soak"
 	desc = "When activated tracks damaged taken for 6 seconds, once the amount of damage reaches 140, the Defender is healed by 75 and the Tail Slam cooldown is reset. If the damage threshold is not reached, nothing happens."
 	cooldown_duration = 17 SECONDS
 	ability_cost = 35
 	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
 	//change it TODO
 	keybinding_signals = list(
-		KEYBINDING_NORMAL = COMSIG_XENOABILITY_PSYCHIC_FLING,
+		KEYBINDING_NORMAL = COMSIG_XENOABILITY_STEELCREST_SOAK,
 	)
 
 	/// Requires 140 damage taken within 6 seconds to activate the ability
