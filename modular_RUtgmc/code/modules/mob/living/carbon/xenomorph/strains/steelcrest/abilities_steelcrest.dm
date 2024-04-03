@@ -145,7 +145,7 @@
 	GLOB.round_statistics.defender_fortifiy_toggles++
 	SSblackbox.record_feedback("tally", "round_statistics", 1, "defender_fortifiy_toggles")
 	if(on)
-		X.add_movespeed_modifier(MOVESPEED_ID_CRESTDEFENSE, TRUE, 0, NONE, TRUE, 3)
+		X.add_movespeed_modifier(MOVESPEED_ID_CRESTDEFENSE, TRUE, 0, NONE, TRUE, 5)
 		if(!silent)
 			to_chat(X, span_xenowarning("We tuck ourselves into a defensive stance."))
 		X.soft_armor = X.soft_armor.modifyAllRatings(last_fortify_bonus)
@@ -161,3 +161,77 @@
 	X.anchored = on
 	playsound(X.loc, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 	X.update_icons()
+
+// ***************************************
+// *********** Headbutt
+// ***************************************
+
+/datum/action/ability/activable/xeno/headbutt
+	name = "Headbutt"
+	action_icon_state = "fling" //change it TODO
+	desc = "Headbutts into the designated target"
+	cooldown_duration = 10 SECONDS
+	ability_cost = 35
+	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
+	//change it TODO
+	keybinding_signals = list(
+		KEYBINDING_NORMAL = COMSIG_XENOABILITY_PSYCHIC_FLING,
+	)
+	target_flags = ABILITY_MOB_TARGET
+
+	var/base_damage = 30
+
+/datum/action/ability/activable/xeno/headbutt/on_cooldown_finish()
+	to_chat(owner, span_notice("We gather enough strength to headbutt again."))
+	return ..()
+
+/datum/action/ability/activable/xeno/headbutt/can_use_ability(atom/target, silent = FALSE, override_flags)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(QDELETED(target))
+		return FALSE
+	if(!ishuman(target))
+		return FALSE
+	var/mob/living/carbon/xenomorph/defender/X = owner
+	var/max_dist = 3 - (X.crest_defense * 2)
+	if(!line_of_sight(owner, target, max_dist))
+		if(!silent)
+			to_chat(owner, span_warning("We must get closer to headbutt"))
+		return FALSE
+	if(ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		if(isnestedhost(victim))
+			return FALSE
+		if(!CHECK_BITFIELD(use_state_flags|override_flags, ABILITY_IGNORE_DEAD_TARGET) && victim.stat == DEAD)
+			return FALSE
+
+/datum/action/ability/activable/xeno/headbutt/use_ability(atom/target)
+	var/mob/living/carbon/xenomorph/defender/X = owner
+	var/mob/living/victim = target
+	var/headbutt_direction = get_dir(owner, target)
+	var/headbutt_distance = 1 + (X.crest_defense * 2) + (X.fortify * 2)
+	//GLOB.round_statistics.psychic_flings++ TODO
+	//SSblackbox.record_feedback("tally", "round_statistics", 1, "psychic_flings")
+
+	if(!X.crest_defense)
+		add_cooldown()
+		victim.throw_at(get_ranged_target_turf(owner, headbutt_direction ? headbutt_direction : owner.dir, headbutt_distance), headbutt_distance, 1, owner, TRUE)
+		playsound(victim,'sound/weapons/alien_claw_block.ogg', 75, 1)
+	if(!X.Adjacent(target))
+		//succeed_activate()
+		return
+
+	var/headbutt_damage = base_damage - (X.crest_defense * 10)
+
+	owner.visible_message(span_xenowarning("[owner] rams [victim] with its armored crest!"), \
+	span_xenowarning("We ram [victim] with our armored crest!"))
+
+	victim.apply_damage(headbutt_damage, BRUTE, BODY_ZONE_CHEST, MELEE)
+
+	victim.throw_at(get_ranged_target_turf(owner, headbutt_direction ? headbutt_direction : owner.dir, headbutt_distance), headbutt_distance, 1, owner, TRUE)
+
+	playsound(victim,'sound/weapons/alien_claw_block.ogg', 75, 1)
+
+	succeed_activate()
+	add_cooldown()

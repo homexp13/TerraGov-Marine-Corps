@@ -24,6 +24,7 @@
 		/datum/action/ability/activable/xeno/psydrain,
 		/datum/action/ability/xeno_action/steel_crest_fortify,
 		/datum/action/ability/xeno_action/steel_toggle_crest_defense,
+		/datum/action/ability/activable/xeno/headbutt,
 	)
 
 /datum/xeno_caste/defender/strain/ancient
