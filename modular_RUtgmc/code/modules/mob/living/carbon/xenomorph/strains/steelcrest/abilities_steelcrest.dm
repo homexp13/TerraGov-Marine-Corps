@@ -209,19 +209,14 @@
 /datum/action/ability/activable/xeno/headbutt/use_ability(atom/target)
 	var/mob/living/carbon/xenomorph/defender/X = owner
 	var/mob/living/victim = target
-	var/headbutt_direction = get_dir(owner, target)
-	var/headbutt_distance = 1 + (X.crest_defense * 2) + (X.fortify * 2)
 	//GLOB.round_statistics.psychic_flings++ TODO
 	//SSblackbox.record_feedback("tally", "round_statistics", 1, "psychic_flings")
 
-	if(!X.crest_defense)
-		add_cooldown()
-		victim.throw_at(get_ranged_target_turf(owner, headbutt_direction ? headbutt_direction : owner.dir, headbutt_distance), headbutt_distance, 1, owner, TRUE)
-		playsound(victim,'sound/weapons/alien_claw_block.ogg', 75, 1)
-	if(!X.Adjacent(target))
-		//succeed_activate()
+	if(!X.Adjacent(target) && !X.crest_defense)
 		return
 
+	var/headbutt_direction = get_dir(owner, target)
+	var/headbutt_distance = 1 + (X.crest_defense * 2) + (X.fortify * 2)
 	var/headbutt_damage = base_damage - (X.crest_defense * 10)
 
 	owner.visible_message(span_xenowarning("[owner] rams [victim] with its armored crest!"), \
@@ -230,8 +225,77 @@
 	victim.apply_damage(headbutt_damage, BRUTE, BODY_ZONE_CHEST, MELEE)
 
 	victim.throw_at(get_ranged_target_turf(owner, headbutt_direction ? headbutt_direction : owner.dir, headbutt_distance), headbutt_distance, 1, owner, TRUE)
-
 	playsound(victim,'sound/weapons/alien_claw_block.ogg', 75, 1)
 
 	succeed_activate()
 	add_cooldown()
+
+/datum/action/ability/xeno_action/soak
+	name = "soak"
+	action_icon_state = "fling" //change it TODO
+	desc = "When activated tracks damaged taken for 6 seconds, once the amount of damage reaches 140, the Defender is healed by 75 and the Tail Slam cooldown is reset. If the damage threshold is not reached, nothing happens."
+	cooldown_duration = 17 SECONDS
+	ability_cost = 35
+	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
+	//change it TODO
+	keybinding_signals = list(
+		KEYBINDING_NORMAL = COMSIG_XENOABILITY_PSYCHIC_FLING,
+	)
+
+	/// Requires 140 damage taken within 6 seconds to activate the ability
+	var/damage_threshold = 140
+	/// Heal
+	var/heal_amount = 125
+	/// Sunder heal
+	var/heal_sunder_amount = 25
+	/// Initially zero, gets damage added when the ability is activated
+	var/damage_accumulated = 0
+
+/datum/action/ability/xeno_action/soak/action_activate(atom/target)
+	var/mob/living/carbon/xenomorph/steelcrest = owner
+
+	RegisterSignal(steelcrest, COMSIG_XENOMORPH_TAKING_DAMAGE, PROC_REF(damage_accumulate))
+	addtimer(CALLBACK(src, PROC_REF(stop_accumulating)), 6 SECONDS)
+
+	steelcrest.balloon_alert(steelcrest, "begins to tank incoming damage!")
+
+	to_chat(steelcrest, span_xenonotice("We begin to tank incoming damage!"))
+
+	steelcrest.add_filter("steelcrest_enraging", 1, list("type" = "outline", "color" = "#421313", "size" = 1))
+
+	succeed_activate()
+	add_cooldown()
+
+/datum/action/ability/xeno_action/soak/proc/damage_accumulate(datum/source, damage)
+	SIGNAL_HANDLER
+
+	damage_accumulated += damage
+
+	if(damage_accumulated >= damage_threshold)
+		addtimer(CALLBACK(src, PROC_REF(enraged), owner), 1) //CM use timer, so i do
+		UnregisterSignal(owner, COMSIG_XENOMORPH_TAKING_DAMAGE) // Two Unregistersignal because if the enrage proc doesnt happen, then it needs to stop counting
+
+/datum/action/ability/xeno_action/soak/proc/stop_accumulating()
+	UnregisterSignal(owner, COMSIG_XENOMORPH_TAKING_DAMAGE)
+
+	damage_accumulated = 0
+	to_chat(owner, span_xenonotice("We stop taking incoming damage."))
+	owner.remove_filter("steelcrest_enraging")
+
+/datum/action/ability/xeno_action/soak/proc/enraged()
+
+	owner.remove_filter("steelcrest_enraging")
+	owner.add_filter("steelcrest_enraged", 1, list("type" = "outline", "color" = "#ad1313", "size" = 1))
+
+	owner.visible_message(span_xenowarning("[owner] gets enraged after being damaged enough!"), \
+	span_xenowarning("We feel enraged after taking in oncoming damage! Our tail slam's cooldown is reset and we heal!"))
+
+	var/mob/living/carbon/xenomorph/enraged_mob = owner
+	HEAL_XENO_DAMAGE(enraged_mob, heal_amount, FALSE)
+	enraged_mob.adjust_sunder(-heal_sunder_amount)
+
+	addtimer(CALLBACK(src, PROC_REF(remove_enrage), owner), 3 SECONDS)
+
+
+/datum/action/ability/xeno_action/soak/proc/remove_enrage()
+	owner.remove_filter("steelcrest_enraged")
