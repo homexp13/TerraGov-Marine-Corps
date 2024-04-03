@@ -44,3 +44,16 @@
 	if(. == CONSCIOUS && fortify) //No longer conscious.
 		var/datum/action/ability/xeno_action/steel_crest_fortify/FT = actions_by_path[/datum/action/ability/xeno_action/steel_crest_fortify]
 		FT.set_fortify(FALSE) //Fortify prevents dragging due to the anchor component.
+
+// ***************************************
+// *********** Front Armor
+// ***************************************
+
+/mob/living/carbon/xenomorph/queen/projectile_hit(obj/projectile/proj, cardinal_move, uncrossing)
+	if(SEND_SIGNAL(src, COMSIG_XENO_PROJECTILE_HIT, proj, cardinal_move, uncrossing) & COMPONENT_PROJECTILE_DODGE)
+		return FALSE
+	if(proj.ammo.flags_ammo_behavior & AMMO_SKIPS_ALIENS)
+		return FALSE
+	if((cardinal_move & REVERSE_DIR(dir)))
+		proj.damage -= proj.damage * (0.2 * get_sunder())
+	return ..()

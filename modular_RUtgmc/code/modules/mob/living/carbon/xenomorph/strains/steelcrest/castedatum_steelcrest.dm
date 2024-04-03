@@ -25,6 +25,7 @@
 		/datum/action/ability/xeno_action/steel_crest_fortify,
 		/datum/action/ability/xeno_action/steel_toggle_crest_defense,
 		/datum/action/ability/activable/xeno/headbutt,
+		/datum/action/ability/xeno_action/soak,
 	)
 
 /datum/xeno_caste/defender/strain/ancient
