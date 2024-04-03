@@ -245,6 +245,7 @@
 #include "code\modules\mob\living\carbon\xenomorph\castes\warrior\castedatum_warrior.dm"
 #include "code\modules\mob\living\carbon\xenomorph\strains\steelcrest\castedatum_steelcrest.dm"
 #include "code\modules\mob\living\carbon\xenomorph\strains\steelcrest\steelcrest.dm"
+#include "code\modules\mob\living\carbon\xenomorph\strains\steelcrest\abilities_steelcrest.dm"
 #include "code\modules\mob\living\silicon\ai\ai.dm"
 #include "code\modules\organs\limb_objects.dm"
 #include "code\modules\power\fusion_engine.dm"

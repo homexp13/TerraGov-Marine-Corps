@@ -1,11 +1,11 @@
 /datum/xeno_caste/defender/strain
-	caste_name = "Steel Crest"
+	caste_name = "Defender"
 	display_name = "Steel Crest"
 	caste_desc = "An alien with an armored crest. It looks very tough."
 
 	is_strain = TRUE
 
-	caste_type_path = /mob/living/carbon/xenomorph/defender/strain
+	caste_type_path = /mob/living/carbon/xenomorph/steel_crest
 	caste_parent_type_path = /mob/living/carbon/xenomorph/defender
 
 	// *** Flags *** //
@@ -16,17 +16,14 @@
 	// *** Defender Abilities *** //
 	crest_defense_armor = 30
 	crest_defense_slowdown = 0.8
-	fortify_armor = 55
+	fortify_armor = 40
 
 	actions = list(
 		/datum/action/ability/xeno_action/xeno_resting,
 		/datum/action/ability/xeno_action/watch_xeno,
 		/datum/action/ability/activable/xeno/psydrain,
-		/datum/action/ability/xeno_action/toggle_crest_defense,
-		/datum/action/ability/xeno_action/fortify,
-		/datum/action/ability/activable/xeno/charge/forward_charge,
-		/datum/action/ability/xeno_action/tail_sweep,
-		/datum/action/ability/xeno_action/regenerate_skin,
+		/datum/action/ability/xeno_action/steel_crest_fortify,
+		/datum/action/ability/xeno_action/steel_toggle_crest_defense,
 	)
 
 /datum/xeno_caste/defender/strain/ancient
