@@ -9,7 +9,7 @@
 	caste_parent_type_path = /mob/living/carbon/xenomorph/defender
 
 	// *** Flags *** //
-	caste_flags = CASTE_EVOLUTION_ALLOWED|CASTE_HIDE_IN_STATUS
+	caste_flags = CASTE_EVOLUTION_ALLOWED|CASTE_HIDE_IN_STATUS|CASTE_INSTANT_EVOLUTION
 	can_flags = CASTE_CAN_BE_QUEEN_HEALED|CASTE_CAN_BE_GIVEN_PLASMA|CASTE_CAN_BE_LEADER
 	caste_traits = null
 

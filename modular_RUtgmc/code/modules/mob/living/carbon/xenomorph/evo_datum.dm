@@ -12,7 +12,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "HiveEvolveScreen")
+		ui = new(user, src, "HiveStrainScreen")
 		ui.open()
 
 /// Checks for xeno access and prevents unconscious / dead xenos from interacting.
