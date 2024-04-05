@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, ProgressBar, Collapsible } from '../components';
+import { Button, Section, Collapsible } from '../components';
 import { Window } from '../layouts';
 
 const CasteView = (props) => {
