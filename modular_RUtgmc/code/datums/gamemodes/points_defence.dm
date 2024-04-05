@@ -111,7 +111,6 @@
 
 	var/datum/job/xeno_job = SSjob.GetJobType(/datum/job/xenomorph)
 	var/active_humans = length(GLOB.humans_by_zlevel["2"]) //we should not spawn larvas on shipside anyway
-	var/active_xenos = length(GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL]) + (xeno_job.total_positions - xeno_job.current_positions)
 	var/active_xenos = xeno_job.total_positions - xeno_job.current_positions //burrowed
 	for(var/mob/living/carbon/xenomorph/xeno AS in GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL])
 		if(xeno.xeno_caste.caste_flags & CASTE_IS_A_MINION)
