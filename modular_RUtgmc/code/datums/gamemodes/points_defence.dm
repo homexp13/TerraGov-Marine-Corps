@@ -7,10 +7,10 @@
 
 	var/sensors_activated = 0
 
-	var/victory_condition_sensors_amount = 3
+	var/victory_condition_sensors_amount = 4
 	var/phorone_sensors = 2
 	//the number of sensors is greater than necessary to win, so that the late game does not turn into a 1 point defense
-	var/platinum_sensors = 2
+	var/platinum_sensors = 3
 
 	//larva points generation
 
@@ -112,13 +112,17 @@
 	var/datum/job/xeno_job = SSjob.GetJobType(/datum/job/xenomorph)
 	var/active_humans = length(GLOB.humans_by_zlevel["2"]) //we should not spawn larvas on shipside anyway
 	var/active_xenos = length(GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL]) + (xeno_job.total_positions - xeno_job.current_positions)
-	//The larval spawn is based on the amount of how much sensors is NOT active
+	var/active_xenos = xeno_job.total_positions - xeno_job.current_positions //burrowed
+	for(var/mob/living/carbon/xenomorph/xeno AS in GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL])
+		if(xeno.xeno_caste.caste_flags & CASTE_IS_A_MINION)
+			continue
+		active_xenos ++
 	current_larva_spawn_rate = (victory_condition_sensors_amount - sensors_activated) / victory_condition_sensors_amount
 	//We then are normalising with the number of alive marines, so the balance is roughly the same whether or not we are in high pop
 	current_larva_spawn_rate *= SILO_BASE_OUTPUT_PER_MARINE * active_humans
 	current_larva_spawn_rate *= sensors_larva_points_scaling
 	//We scale the rate based on the current ratio of humans to xenos
-	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) * (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.4, 1.4)
+	current_larva_spawn_rate *= clamp(round((active_humans / active_xenos) * (LARVA_POINTS_REGULAR / xeno_job.job_points_needed), 0.01), 0.5, 1.5)
 
 	GLOB.round_statistics.larva_from_towers += current_larva_spawn_rate / xeno_job.job_points_needed
 
