@@ -83,7 +83,7 @@
 // ***************************************
 /datum/action/ability/xeno_action/steel_crest_fortify
 	name = "Fortify"
-	action_icon_state = "fortify"	// TODO
+	action_icon_state = "fortify"
 	desc = "Plant yourself for a large defensive boost."
 	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // duh
 	cooldown_duration = 1 SECONDS
@@ -146,6 +146,7 @@
 	SSblackbox.record_feedback("tally", "round_statistics", 1, "defender_fortifiy_toggles")
 	if(on)
 		X.add_movespeed_modifier(MOVESPEED_ID_CRESTDEFENSE, TRUE, 0, NONE, TRUE, 5)
+		X.set_glide_size(2)
 		if(!silent)
 			to_chat(X, span_xenowarning("We tuck ourselves into a defensive stance."))
 		X.soft_armor = X.soft_armor.modifyAllRatings(last_fortify_bonus)
@@ -168,12 +169,11 @@
 
 /datum/action/ability/activable/xeno/headbutt
 	name = "Headbutt"
-	action_icon_state = "headbutt" //change it TODO
+	action_icon_state = "headbutt"
 	desc = "Headbutts into the designated target"
 	cooldown_duration = 10 SECONDS
 	ability_cost = 35
 	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
-	//change it TODO
 	keybinding_signals = list(
 		KEYBINDING_NORMAL = COMSIG_XENOABILITY_STEELCREST_HEADBUTT,
 	)
@@ -194,7 +194,7 @@
 	if(!ishuman(target))
 		return FALSE
 	var/mob/living/carbon/xenomorph/defender/X = owner
-	var/max_dist = 3 - (X.crest_defense * 2)
+	var/max_dist = 2 - (X.crest_defense)
 	if(!line_of_sight(owner, target, max_dist))
 		if(!silent)
 			to_chat(owner, span_warning("We must get closer to headbutt"))
@@ -212,10 +212,6 @@
 	//GLOB.round_statistics.psychic_flings++ TODO
 	//SSblackbox.record_feedback("tally", "round_statistics", 1, "psychic_flings")
 
-	if(!X.Adjacent(target) && !X.crest_defense)
-		return
-
-	var/headbutt_direction = get_dir(owner, target)
 	var/headbutt_distance = 1 + (X.crest_defense * 2) + (X.fortify * 2)
 	var/headbutt_damage = base_damage - (X.crest_defense * 10)
 
@@ -224,7 +220,18 @@
 
 	victim.apply_damage(headbutt_damage, BRUTE, BODY_ZONE_CHEST, MELEE)
 
-	victim.throw_at(get_ranged_target_turf(owner, headbutt_direction ? headbutt_direction : owner.dir, headbutt_distance), headbutt_distance, 1, owner, TRUE)
+	X.do_attack_animation(victim)
+
+	var/facing = get_dir(X, victim)
+	var/turf/T = victim.loc
+	var/turf/temp
+	for(var/x in 1 to headbutt_distance)
+		temp = get_step(T, facing)
+		if(!temp)
+			break
+		T = temp
+	victim.throw_at(T, headbutt_distance, 1, owner, TRUE)
+
 	playsound(victim,'sound/weapons/alien_claw_block.ogg', 75, 1)
 
 	succeed_activate()
@@ -237,7 +244,6 @@
 	cooldown_duration = 17 SECONDS
 	ability_cost = 35
 	use_state_flags = ABILITY_USE_FORTIFIED|ABILITY_USE_CRESTED // yea
-	//change it TODO
 	keybinding_signals = list(
 		KEYBINDING_NORMAL = COMSIG_XENOABILITY_STEELCREST_SOAK,
 	)
@@ -245,7 +251,7 @@
 	/// Requires 140 damage taken within 6 seconds to activate the ability
 	var/damage_threshold = 140
 	/// Heal
-	var/heal_amount = 125
+	var/heal_amount = 80
 	/// Sunder heal
 	var/heal_sunder_amount = 25
 	/// Initially zero, gets damage added when the ability is activated
