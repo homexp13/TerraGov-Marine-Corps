@@ -29,7 +29,7 @@
 	///How many times we neeed to tick for a resource to be created, in this case this is 2* the specified amount
 	var/required_ticks = 50
 	///The amount of profit, less useful than phoron miners
-	var/points_income = 240
+	var/points_income = 300
 	///Applies the actual bonus points for the dropship for each sale, even much more than miners
 	var/dropship_bonus = 40
 
@@ -88,6 +88,11 @@
 	if(!attacker_state_check(user))
 		return
 	balloon_alert_to_viewers("Activating sensor tower...")
+	if(user.skills.getRating(SKILL_LEADERSHIP) < SKILL_LEAD_TRAINED)
+		user.visible_message(span_notice("[user] fumbles around figuring out how to activate [src]."),
+		span_notice("You fumble around figuring out how to activate [src]."))
+		if(!do_after(user, 25 SECONDS, NONE, src, BUSY_ICON_UNSKILLED))
+			return FALSE
 	if(!do_after(user, activate_time, NONE, src))
 		return
 	if(!attacker_state_check(user))
