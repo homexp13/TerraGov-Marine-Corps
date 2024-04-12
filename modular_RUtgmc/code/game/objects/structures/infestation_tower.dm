@@ -115,6 +115,16 @@
 	current_timer = addtimer(CALLBACK(src, PROC_REF(finish_activation)), generate_time, TIMER_STOPPABLE)
 	update_icon()
 
+	//marines
+	for(var/mob/living/carbon/human/human AS in GLOB.alive_human_list)
+		if(human.faction == FACTION_TERRAGOV)
+			human.playsound_local(human, "sound/effects/CIC_order.ogg", 10, 1)
+			human.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>OVERWATCH</u></span><br>" + "[src] is being activated, get ready to defend it team!", /atom/movable/screen/text/screen_text/picture/potrait)
+	//beno
+	for(var/mob/living/carbon/xenomorph/xeno AS in GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL])
+		xeno.playsound_local(xeno, "sound/voice/alien_hiss1.ogg", 10, 1)
+		xeno.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>HIVEMIND</u></span><br>" + "[src] is being activated, deactivate it!", /atom/movable/screen/text/screen_text/picture/potrait/queen_mother)
+
 ///When timer ends add a point to the point pool in sensor capture, increase game timer, and send an alert
 /obj/structure/sensor_tower_infestation/proc/finish_activation()
 	if(!current_timer)
@@ -134,6 +144,16 @@
 	playsound(src, 'sound/machines/ping.ogg', 25, 1)
 	balloon_alert_to_viewers("[src] has finished activation!")
 
+	//marines
+	for(var/mob/living/carbon/human/human AS in GLOB.alive_human_list)
+		if(human.faction == FACTION_TERRAGOV)
+			human.playsound_local(human, "sound/effects/CIC_order.ogg", 10, 1)
+			human.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>OVERWATCH</u></span><br>" + "[src] is fully activated!", /atom/movable/screen/text/screen_text/picture/potrait)
+	//beno
+	for(var/mob/living/carbon/xenomorph/xeno AS in GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL])
+		xeno.playsound_local(xeno, "sound/voice/alien_hiss1.ogg", 10, 1)
+		xeno.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>HIVEMIND</u></span><br>" + "[src] is fully activated, stop further towers from being activated!", /atom/movable/screen/text/screen_text/picture/potrait/queen_mother)
+
 ///Stops timer if activating and sends an alert
 /obj/structure/sensor_tower_infestation/proc/deactivate()
 	if(activated)
@@ -144,6 +164,17 @@
 	current_timer = null
 
 	update_icon()
+
+	//marines
+	for(var/mob/living/carbon/human/human AS in GLOB.alive_human_list)
+		if(human.faction == FACTION_TERRAGOV)
+			human.playsound_local(human, "sound/effects/CIC_order.ogg", 10, 1)
+			human.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>OVERWATCH</u></span><br>" + "[src] has been deactivated", /atom/movable/screen/text/screen_text/picture/potrait)
+	//beno
+	for(var/mob/living/carbon/xenomorph/xeno AS in GLOB.alive_xeno_list_hive[XENO_HIVE_NORMAL])
+		xeno.playsound_local(xeno, "sound/voice/alien_hiss1.ogg", 10, 1)
+		xeno.play_screen_text("<span class='maptext' style=font-size:24pt;text-align:left valign='top'><u>HIVEMIND</u></span><br>" + "[src] has been deactivated! Get ready to defend it hive", /atom/movable/screen/text/screen_text/picture/potrait/queen_mother)
+
 
 /obj/structure/sensor_tower_infestation/update_icon()
 	. = ..()
