@@ -7,10 +7,9 @@
 
 	var/sensors_activated = 0
 
-	var/victory_condition_sensors_amount = 4
-	var/phorone_sensors = 2
-	//the number of sensors is greater than necessary to win, so that the late game does not turn into a 1 point defense
-	var/platinum_sensors = 3
+	var/victory_condition_sensors_amount
+	var/phorone_sensors
+	var/platinum_sensors
 
 	//larva points generation
 
@@ -24,11 +23,46 @@
 
 /datum/game_mode/infestation/distress/points_defence/post_setup()
 	. = ..()
+
+	//delete miners
 	for(var/atom/A AS in GLOB.miners_phorone)
 		qdel(A)
 	for(var/atom/A AS in GLOB.miners_platinum)
 		qdel(A)
 
+	//number of sensors
+	//the number of sensors is greater than necessary to win, so that the late game does not turn into a 1 point defense
+	switch(TGS_CLIENT_COUNT)
+		if(1 to 15) //i dunno who will play it
+			victory_condition_sensors_amount = 2
+			phorone_sensors = 1
+			platinum_sensors = 1
+		if(16 to 30)
+			victory_condition_sensors_amount = 2
+			phorone_sensors = 1
+			platinum_sensors = 2
+		if(31 to 40)
+			victory_condition_sensors_amount = 3
+			phorone_sensors = 2
+			platinum_sensors = 2
+		if(41 to 50)
+			victory_condition_sensors_amount = 3
+			phorone_sensors = 1
+			platinum_sensors = 3
+		if(51 to 75)
+			victory_condition_sensors_amount = 4
+			phorone_sensors = 2
+			platinum_sensors = 3
+		if(76 to 100)
+			victory_condition_sensors_amount = 4
+			phorone_sensors = 1
+			platinum_sensors = 4
+		else //madness
+			victory_condition_sensors_amount = 5
+			phorone_sensors = 3
+			platinum_sensors = 3
+
+	//setip sensor towers
 	for(var/i in 1 to phorone_sensors)
 		var/turf/T = pick(GLOB.miner_phorone_locs)
 		new /obj/structure/sensor_tower_infestation(T)
