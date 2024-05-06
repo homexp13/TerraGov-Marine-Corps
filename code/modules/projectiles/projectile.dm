@@ -873,7 +873,7 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 	if(!damage)
 		return
 
-	damage = check_shields(COMBAT_PROJ_ATTACK, damage, proj.ammo.armor_type, FALSE, proj.penetration)
+	damage = check_shields(COMBAT_PROJ_ATTACK, damage, proj.ammo.armor_type, FALSE, proj.penetration + proj.sundering * 5)
 	if(!damage)
 		proj.ammo.on_shield_block(src, proj)
 		return
@@ -905,8 +905,9 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 		if(IgniteMob())
 			feedback_flags |= (BULLET_FEEDBACK_FIRE)
 
-	if(proj.ammo.flags_ammo_behavior & AMMO_SUNDERING)
-		adjust_sunder(proj.sundering * get_sunder()) // RUTGMC EDIT
+
+	if((proj.ammo.flags_ammo_behavior & AMMO_SUNDERING) && proj.sundering > 10) //RuTGMC EDIT
+		adjust_sunder(proj.sundering)
 
 	if(stat != DEAD && ismob(proj.firer))
 		record_projectile_damage(proj.firer, damage)	//Tally up whoever the shooter was
