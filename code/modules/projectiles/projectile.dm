@@ -873,7 +873,7 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 	if(!damage)
 		return
 
-	damage = check_shields(COMBAT_PROJ_ATTACK, damage, proj.ammo.armor_type, FALSE, proj.penetration + proj.sundering * 5)
+	damage = check_shields(COMBAT_PROJ_ATTACK, damage, proj.ammo.armor_type, FALSE, proj.sundering)
 	if(!damage)
 		proj.ammo.on_shield_block(src, proj)
 		return
@@ -893,7 +893,12 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 		if(shooter_carbon.IsStaggered())
 			damage *= STAGGER_DAMAGE_MULTIPLIER //Since we hate RNG, stagger reduces damage by a % instead of reducing accuracy; consider it a 'glancing' hit due to being disoriented.
 	var/original_damage = damage
-	damage = modify_by_armor(damage, proj.armor_type, proj.penetration, proj.def_zone)
+
+	var/sunder_to_penetration = 0
+	if(isxeno(src))
+		sunder_to_penetration = log(proj.sundering) * 8 + 5
+
+	damage = modify_by_armor(damage, proj.armor_type, proj.sundering > 10 ? proj.penetration : (proj.penetration + sunder_to_penetration), proj.def_zone)
 	if(damage == original_damage)
 		feedback_flags |= BULLET_FEEDBACK_PEN
 	else if(!damage)
