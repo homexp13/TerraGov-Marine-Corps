@@ -899,7 +899,7 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 	if(isxeno(src))
 		sunder_to_penetration = log(proj.sundering) * 8 + 5
 
-	damage = modify_by_armor(damage, proj.armor_type, proj.sundering > 10 ? proj.penetration : (proj.penetration + sunder_to_penetration), proj.def_zone)// RUTGMC EDIT
+	damage = modify_by_armor(damage, proj.armor_type, proj.sundering > 20 ? proj.penetration : (proj.penetration + sunder_to_penetration), proj.def_zone)// RUTGMC EDIT
 	if(damage == original_damage)
 		feedback_flags |= BULLET_FEEDBACK_PEN
 	else if(!damage)
@@ -912,7 +912,7 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 			feedback_flags |= (BULLET_FEEDBACK_FIRE)
 
 
-	if((proj.ammo.flags_ammo_behavior & AMMO_SUNDERING) && proj.sundering > 10) // RUTGMC EDIT
+	if((proj.ammo.flags_ammo_behavior & AMMO_SUNDERING) && proj.sundering > 20) // RUTGMC EDIT
 		adjust_sunder(proj.sundering) // RUTGMC EDIT
 
 	if(stat != DEAD && ismob(proj.firer))
