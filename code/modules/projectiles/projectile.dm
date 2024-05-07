@@ -897,7 +897,7 @@ So if we are on the 32th absolute pixel coordinate we are on tile 1, but if we a
 	//// RUTGMC EDIT
 	var/sunder_to_penetration = 0
 	if(isxeno(src))
-		sunder_to_penetration = log(proj.sundering) * 8 + 5
+		sunder_to_penetration = log(proj.sundering + 1) * 10
 
 	damage = modify_by_armor(damage, proj.armor_type, proj.sundering >= 20 ? proj.penetration : (proj.penetration + sunder_to_penetration), proj.def_zone)// RUTGMC EDIT
 	if(damage == original_damage)
