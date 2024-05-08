@@ -205,11 +205,25 @@
 /obj/item/armor_module/module/better_shoulder_lamp
 	desc = "Designed for mounting on modular armor. Substantially increases the power output of your modular armor's mounted flashlight and hides your condition. Be the light in the darkness"
 
-/obj/item/armor_module/module/better_shoulder_lamp/on_attach(obj/item/attaching_to, mob/user)
+
+/**
+ * pluto
+ */
+/obj/item/armor_module/module/pluto
+	name = "\improper Pluto concealment module"
+	desc = "A special system that hides the smell and temperature from xenomorphs, hiding your condition"
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+	icon_state = "mod_pluto"
+	item_state = "mod_pluto_a"
+	slowdown = 0
+	slot = ATTACHMENT_SLOT_MODULE
+	variants_by_parent_type = list(/obj/item/clothing/suit/modular/xenonauten = "mod_lamp_xn")
+
+/obj/item/armor_module/module/pluto/on_attach(obj/item/attaching_to, mob/user)
 	. = ..()
 	parent.AddComponent(/datum/component/health_stealth)
 
-/obj/item/armor_module/module/better_shoulder_lamp/on_detach(obj/item/detaching_from, mob/user)
+/obj/item/armor_module/module/pluto/on_detach(obj/item/detaching_from, mob/user)
 	var/datum/component/health_stealth/health_stealth = parent?.GetComponent(/datum/component/health_stealth)
 	health_stealth?.RemoveComponent()
 	return ..()
