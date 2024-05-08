@@ -202,6 +202,9 @@
 	blur_p?.RemoveComponent()
 	return ..()
 
+/obj/item/armor_module/module/better_shoulder_lamp
+	desc = "Designed for mounting on modular armor. Substantially increases the power output of your modular armor's mounted flashlight and hides your condition. Be the light in the darkness"
+
 /obj/item/armor_module/module/better_shoulder_lamp/on_attach(obj/item/attaching_to, mob/user)
 	. = ..()
 	parent.AddComponent(/datum/component/health_stealth)
