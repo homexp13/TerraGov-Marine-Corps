@@ -201,3 +201,12 @@
 	var/datum/component/blur_protection/blur_p = parent?.GetComponent(/datum/component/blur_protection)
 	blur_p?.RemoveComponent()
 	return ..()
+
+/obj/item/armor_module/module/better_shoulder_lamp/on_attach(obj/item/attaching_to, mob/user)
+	. = ..()
+	parent.AddComponent(/datum/component/health_stealth)
+
+/obj/item/armor_module/module/better_shoulder_lamp/on_detach(obj/item/detaching_from, mob/user)
+	var/datum/component/blur_protection/health_stealth = parent?.GetComponent(/datum/component/health_stealth)
+	health_stealth?.RemoveComponent()
+	return ..()
