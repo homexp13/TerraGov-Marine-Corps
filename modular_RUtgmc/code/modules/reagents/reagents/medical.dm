@@ -115,3 +115,100 @@
 
 /datum/reagent/medicine/research/medicalnanites/overdose_crit_process(mob/living/L, metabolism)
 	L.adjustCloneLoss(1) //YUM!
+
+/datum/reagent/medicine/ibuprofen
+	name = "Ibuprofen"
+	description = "Ibuprofen is a nonsteroidal anti-inflammatory drug"
+	color = COLOR_REAGENT_BICARIDINE
+	purge_list = list(/datum/reagent/medicine/ryetalyn, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/tricordrazine)
+	purge_rate = 5
+	custom_metabolism = REAGENTS_METABOLISM * 0.5
+	overdose_threshold = REAGENTS_OVERDOSE
+	overdose_crit_threshold = REAGENTS_OVERDOSE_CRITICAL
+	scannable = TRUE
+
+/datum/reagent/medicine/ibuprofen/on_mob_life(mob/living/L, metabolism)
+	L.heal_overall_damage(1.2*effect_str, 0)
+	if(volume < 10)
+		L.reagent_pain_modifier -= PAIN_REDUCTION_LIGHT
+		L.heal_overall_damage(0.5*effect_str, 0)
+	else
+		L.reagent_pain_modifier -= PAIN_REDUCTION_VERY_LIGHT
+	return ..()
+
+/datum/reagent/medicine/ibuprofen/overdose_process(mob/living/L, metabolism)
+	L.apply_damage(effect_str, BURN)
+
+/datum/reagent/medicine/ibuprofen/overdose_crit_process(mob/living/L, metabolism)
+	L.apply_damages(effect_str, 3*effect_str, 2*effect_str)
+
+/datum/reagent/medicine/ketoprofen
+	name = "Ketoprofen"
+	description = "Ketoprofen is one of the propionic acid class of nonsteroidal anti-inflammatory drugs"
+	color = COLOR_REAGENT_BICARIDINE
+	purge_list = list(/datum/reagent/medicine/ryetalyn, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/tricordrazine)
+	purge_rate = 5
+	custom_metabolism = REAGENTS_METABOLISM * 0.5
+	overdose_threshold = REAGENTS_OVERDOSE
+	overdose_crit_threshold = REAGENTS_OVERDOSE_CRITICAL
+	scannable = TRUE
+
+/datum/reagent/medicine/ketoprofen/on_mob_life(mob/living/L, metabolism)
+	L.heal_overall_damage(0, 1.2*effect_str)
+	if(volume < 10)
+		L.reagent_pain_modifier -= PAIN_REDUCTION_LIGHT
+		L.heal_overall_damage(0, 0.5*effect_str)
+	else
+		L.reagent_pain_modifier -= PAIN_REDUCTION_VERY_LIGHT
+	return ..()
+
+/datum/reagent/medicine/ketoprofen/overdose_process(mob/living/L, metabolism)
+	L.apply_damages(effect_str, BRUTE)
+
+/datum/reagent/medicine/ketoprofen/overdose_crit_process(mob/living/L, metabolism)
+	L.apply_damages(3*effect_str, effect_str, 2*effect_str)
+
+/datum/reagent/histamine
+	name = "Histamine"
+	description = "Histamine is an organic nitrogenous compound involved in local immune responses communication"
+	color = COLOR_REAGENT_BICARIDINE
+	custom_metabolism = REAGENTS_METABOLISM * 0.5
+	overdose_threshold = REAGENTS_OVERDOSE * 0.5
+	overdose_crit_threshold = REAGENTS_OVERDOSE_CRITICAL * 0.5
+	scannable = TRUE
+
+/datum/reagent/histamine/on_mob_life(mob/living/L, metabolism)
+
+	//reagents
+	var/ibuprofen = L.reagents.get_reagent_amount(/datum/reagent/medicine/ibuprofen)
+	var/ketoprofen = L.reagents.get_reagent_amount(/datum/reagent/medicine/ketoprofen)
+	var/tricordrazine = L.reagents.get_reagent_amount(/datum/reagent/medicine/tricordrazine)
+	var/kelotane = L.reagents.get_reagent_amount(/datum/reagent/medicine/kelotane)
+	var/bicaridine = L.reagents.get_reagent_amount(/datum/reagent/medicine/bicaridine)
+	//debuffs
+	if(ibuprofen)
+		L.apply_damages(2*effect_str, BRUTE)
+	if(ketoprofen)
+		L.apply_damages(2*effect_str, BURN)
+	if(tricordrazine)
+		L.apply_damages(effect_str, effect_str, effect_str)
+	if(kelotane)
+		L.apply_damages(1.5*effect_str, BURN)
+	if(bicaridine)
+		L.apply_damages(1.5*effect_str, BRUTE)
+
+	L.apply_damage(0.5*effect_str, OXY)
+
+	return ..()
+
+/datum/reagent/histamine/on_mob_add(mob/living/L, metabolism)
+	to_chat(L, span_userdanger("You feel your throat tightening!"))
+
+/datum/reagent/histamine/on_mob_delete(mob/living/L, metabolism)
+	to_chat(L, span_userdanger("You feel how it becomes easier for you to breathe"))
+
+/datum/reagent/histamine/overdose_process(mob/living/L, metabolism)
+	L.apply_damages(1*effect_str, 1*effect_str, 4*effect_str)
+
+/datum/reagent/histamine/overdose_crit_process(mob/living/L, metabolism)
+	L.apply_damages(0, 0, 6*effect_str)
