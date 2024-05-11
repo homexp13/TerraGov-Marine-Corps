@@ -200,7 +200,8 @@
 	rounds_per_shot = 150
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
-	turret_flags = TURRET_INACCURATE
+	attach_delay = 1 SECONDS
+	detach_delay = 1 SECONDS
 	ammo_level_icon = "te"
 	attachable_allowed = list()
 	starting_attachment_types = list()
