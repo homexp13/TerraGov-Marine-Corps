@@ -94,6 +94,8 @@
 #include "code\game\objects\items\robot\robot_parts.dm"
 #include "code\game\objects\items\sheets\sheet_types.dm"
 #include "code\game\objects\items\stacks\medical.dm"
+
+#include "code\game\objects\items\storage\pouch.dm"
 #include "code\game\objects\items\storage\backpack.dm"
 #include "code\game\objects\items\storage\belt.dm"
 #include "code\game\objects\items\storage\boxes.dm"
@@ -200,6 +202,7 @@
 #include "code\modules\clothing\modular_armor\attachments\chest_plates.dm"
 #include "code\modules\clothing\modular_armor\attachments\modules.dm"
 #include "code\modules\clothing\modular_armor\attachments\storage.dm"
+#include "code\modules\clothing\modular_armor\attachments\uniform.dm"
 #include "code\modules\clothing\shoes\marine_shoes.dm"
 #include "code\modules\clothing\suits\suits.dm"
 #include "code\modules\clothing\under\marine_uniform.dm"
