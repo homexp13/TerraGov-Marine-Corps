@@ -59,8 +59,22 @@
 		for(var/obj/structure/bed/nest/xeno_nest in range (2,T))
 			owner.balloon_alert(owner, span_notice("Another nest is too close!"))
 			return
+	if(X.selected_resin == /obj/structure/mineral_door/resin)
+		if(supports_adjacent(T) > 2)
+			owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+			return
+	var/turf/TS
+	for(var/i in GLOB.cardinals)
+		TS = get_step(T, i)
+		if(!istype(TS))
+			continue
+		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
+		if(door)
+			if(supports_adjacent(get_turf(door)) > 1)
+				owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
+				return
+	..()
 
-	return ..()
 
 /// A version of build_resin with the plasma drain and distance checks removed.
 /datum/action/ability/activable/xeno/secrete_resin/proc/preshutter_build_resin(turf/T)
@@ -111,6 +125,21 @@
 		for(var/obj/structure/bed/nest/xeno_nest in range (2,T))
 			owner.balloon_alert(owner, span_notice("Another nest is too close!"))
 			return
+
+	if(X.selected_resin == /obj/structure/mineral_door/resin)
+		if(supports_adjacent(T) > 2)
+			owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+			return
+	var/turf/TS
+	for(var/i in GLOB.cardinals)
+		TS = get_step(T, i)
+		if(!istype(TS))
+			continue
+		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
+		if(door)
+			if(supports_adjacent(get_turf(door)) > 1)
+				owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+				return
 
 	var/atom/new_resin
 	if(ispath(X.selected_resin, /turf)) // We should change turfs, not spawn them in directly
