@@ -51,6 +51,24 @@
 	else
 		return 'modular_RUtgmc/sound/voice/human_male_cry_1.ogg'
 
+/datum/emote/living/carbon/human/whistle
+	key = "whistle"
+	key_third_person = "whistles"
+	message = "whistle"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/whistle/get_sound(mob/living/user)
+	if(isrobot(user))
+		return
+	return 'modular_RUtgmc/sound/voice/sound_voice_human_whistle1.ogg'
+
+/datum/emote/living/carbon/human/crack
+	key = "crack"
+	key_third_person = "cracks"
+	message = "cracks their knuckles."
+	emote_type = EMOTE_AUDIBLE
+	flags_emote = EMOTE_RESTRAINT_CHECK|EMOTE_MUZZLE_IGNORE|EMOTE_ARMS_CHECK
+	sound = 'modular_RUtgmc/sound/misc/sound_misc_knuckles.ogg'
 
 /datum/emote/living/carbon/necoarc
 	mob_type_allowed_typecache = /mob/living/carbon/human/species/necoarc

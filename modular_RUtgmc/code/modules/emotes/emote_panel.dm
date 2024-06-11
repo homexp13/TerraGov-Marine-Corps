@@ -287,6 +287,16 @@
 	set category = "Emotes"
 	usr.emote("pain", intentional = TRUE)
 
+/mob/living/carbon/human/verb/emote_whistle()
+	set name = "> Whistle"
+	set category = "Emotes"
+	usr.emote("whistle", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_crack()
+	set name = "> Crack"
+	set category = "Emotes"
+	usr.emote("crack", intentional = TRUE)
+
 //signals
 
 /mob/living/carbon/human/verb/emote_signal1()
