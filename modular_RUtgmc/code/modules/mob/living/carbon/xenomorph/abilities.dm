@@ -69,10 +69,9 @@
 		if(!istype(TS))
 			continue
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
-		if(door)
-			if(supports_adjacent(get_turf(door)) > 1)
-				owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
-				return
+		if(door && supports_adjacent(get_turf(door)) > 1)
+			owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
+			return
 	return ..()
 
 
@@ -136,10 +135,9 @@
 		if(!istype(TS))
 			continue
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
-		if(door)
-			if(supports_adjacent(get_turf(door)) > 1)
-				owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
-				return
+		if(door && supports_adjacent(get_turf(door)) > 1)
+			owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
+			return
 
 	var/atom/new_resin
 	if(ispath(X.selected_resin, /turf)) // We should change turfs, not spawn them in directly
