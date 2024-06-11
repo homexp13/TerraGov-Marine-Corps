@@ -64,8 +64,8 @@
 			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
 	var/turf/TS
-	for(var/i in GLOB.cardinals)
-		TS = get_step(T, i)
+	for(var/diraction in GLOB.cardinals)
+		TS = get_step(T, diraction)
 		if(!istype(TS))
 			continue
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
@@ -130,8 +130,8 @@
 			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
 	var/turf/TS
-	for(var/i in GLOB.cardinals)
-		TS = get_step(T, i)
+	for(var/diraction in GLOB.cardinals)
+		TS = get_step(T, diraction)
 		if(!istype(TS))
 			continue
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
