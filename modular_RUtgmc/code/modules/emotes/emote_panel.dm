@@ -243,7 +243,7 @@
 	usr.emote("snap", intentional = TRUE)
 
 /mob/living/carbon/human/verb/emote_hug()
-	set name = "> Hug"
+	set name = "~ Hug"
 	set category = "Emotes"
 	usr.emote("hug", intentional = TRUE)
 
@@ -507,3 +507,185 @@
 	set name = "> Qahu"
 	set category = "Emotes"
 	usr.emote("qahu", intentional = TRUE)
+
+//robotic
+
+/mob/living/carbon/human/species/robot/verb/emote_dwoop()
+	set name = "> Dwoop"
+	set category = "Emotes"
+	usr.emote("dwoop", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_dwoop()
+	set name = "> Dwoop"
+	set category = "Emotes"
+	usr.emote("dwoop", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_dwoop()
+	set name = "> Dwoop"
+	set category = "Emotes"
+	usr.emote("dwoop", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_yes()
+	set name = "> Yes"
+	set category = "Emotes"
+	usr.emote("yes", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_yes()
+	set name = "> Yes"
+	set category = "Emotes"
+	usr.emote("yes", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_yes()
+	set name = "> Yes"
+	set category = "Emotes"
+	usr.emote("yes", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_no()
+	set name = "> No"
+	set category = "Emotes"
+	usr.emote("no", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_no()
+	set name = "> No"
+	set category = "Emotes"
+	usr.emote("no", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_no()
+	set name = "> No"
+	set category = "Emotes"
+	usr.emote("no", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_buzz()
+	set name = "> Buzz"
+	set category = "Emotes"
+	usr.emote("buzz", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_buzz()
+	set name = "> Buzz"
+	set category = "Emotes"
+	usr.emote("buzz", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_buzz()
+	set name = "> Buzz"
+	set category = "Emotes"
+	usr.emote("buzz", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_buzz2()
+	set name = "> Buzz2"
+	set category = "Emotes"
+	usr.emote("buzz2", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_buzz2()
+	set name = "> Buzz2"
+	set category = "Emotes"
+	usr.emote("buzz2", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_buzz2()
+	set name = "> Buzz2"
+	set category = "Emotes"
+	usr.emote("buzz2", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_beep()
+	set name = "> Beep"
+	set category = "Emotes"
+	usr.emote("beep", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_beep()
+	set name = "> Beep"
+	set category = "Emotes"
+	usr.emote("beep", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_beep()
+	set name = "> Beep"
+	set category = "Emotes"
+	usr.emote("beep", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_chime()
+	set name = "> Chime"
+	set category = "Emotes"
+	usr.emote("chime", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_chime()
+	set name = "> Chime"
+	set category = "Emotes"
+	usr.emote("chime", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_chime()
+	set name = "> Chime"
+	set category = "Emotes"
+	usr.emote("chime", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_honk()
+	set name = "> Honk"
+	set category = "Emotes"
+	usr.emote("honk", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_honk()
+	set name = "> Honk"
+	set category = "Emotes"
+	usr.emote("honk", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_honk()
+	set name = "> Honk"
+	set category = "Emotes"
+	usr.emote("honk", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_ping()
+	set name = "> Ping"
+	set category = "Emotes"
+	usr.emote("ping", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_ping()
+	set name = "> Ping"
+	set category = "Emotes"
+	usr.emote("ping", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_ping()
+	set name = "> Ping"
+	set category = "Emotes"
+	usr.emote("ping", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_sad()
+	set name = "> Sad"
+	set category = "Emotes"
+	usr.emote("sad", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_sad()
+	set name = "> Sad"
+	set category = "Emotes"
+	usr.emote("sad", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_sad()
+	set name = "> Sad"
+	set category = "Emotes"
+	usr.emote("sad", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_warn()
+	set name = "> Warn"
+	set category = "Emotes"
+	usr.emote("warn", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_warn()
+	set name = "> Warn"
+	set category = "Emotes"
+	usr.emote("warn", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_warn()
+	set name = "> Warn"
+	set category = "Emotes"
+	usr.emote("warn", intentional = TRUE)
+
+/mob/living/carbon/human/species/robot/verb/emote_laughtrack()
+	set name = "> Laughtrack"
+	set category = "Emotes"
+	usr.emote("laughtrack", intentional = TRUE)
+
+/mob/living/carbon/human/species/synthetic/verb/emote_laughtrack()
+	set name = "> Laughtrack"
+	set category = "Emotes"
+	usr.emote("laughtrack", intentional = TRUE)
+
+/mob/living/carbon/human/species/early_synthetic/verb/emote_laughtrack()
+	set name = "> Laughtrack"
+	set category = "Emotes"
+	usr.emote("laughtrack", intentional = TRUE)
