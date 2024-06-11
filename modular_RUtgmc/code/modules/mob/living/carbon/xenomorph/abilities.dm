@@ -128,7 +128,7 @@
 
 	if(X.selected_resin == /obj/structure/mineral_door/resin)
 		if(supports_adjacent(T) > 2)
-			owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
 	var/turf/TS
 	for(var/i in GLOB.cardinals)
@@ -138,7 +138,7 @@
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
 		if(door)
 			if(supports_adjacent(get_turf(door)) > 1)
-				owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+				owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
 				return
 
 	var/atom/new_resin
