@@ -1,9 +1,32 @@
 /datum/component/health_stealth
+	///Instant analyzer for the suit
+	var/obj/item/healthanalyzer/integrated/analyzer
+	///Actions that the component provides
+	var/list/datum/action/component_actions = list(
+		/datum/action/suit_autodoc/scan = PROC_REF(scan_user)
+	)
 
 /datum/component/health_stealth/Initialize()
 	. = ..()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
+	analyzer = new
+	for(var/action_type in component_actions)
+		var/new_action = new action_type(src, FALSE)
+		new_actions += new_action
+		RegisterSignal(new_action, COMSIG_ACTION_TRIGGER, component_actions[action_type])
+	component_actions = new_actions
+
+/datum/component/health_stealth/Destroy(force, silent)
+	for(var/action in component_actions)
+		QDEL_NULL(action)
+	QDEL_NULL(analyzer)
+	return ..()
+
+///Used to scan the person
+/datum/component/health_stealth/proc/scan_user(datum/source)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(analyzer, TYPE_PROC_REF(/obj/item/healthanalyzer, attack), wearer, wearer, TRUE)
 
 /datum/component/health_stealth/RegisterWithParent()
 	. = ..()
@@ -16,6 +39,8 @@
 
 /datum/component/health_stealth/proc/equipped_to_slot(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
+	for(var/datum/action/current_action AS in component_actions)
+		current_action.give_action(wearer)
 	RegisterSignal(user, COMSIG_LIVING_HEALTH_STEALTH, PROC_REF(hide_health))
 
 /datum/component/health_stealth/proc/hide_health()
@@ -23,4 +48,6 @@
 
 /datum/component/health_stealth/proc/removed_from_slot(datum/source, mob/user)
 	SIGNAL_HANDLER
+	for(var/datum/action/current_action AS in component_actions)
+		current_action.remove_action(wearer)
 	UnregisterSignal(user, COMSIG_LIVING_HEALTH_STEALTH)

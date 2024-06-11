@@ -202,10 +202,6 @@
 	blur_p?.RemoveComponent()
 	return ..()
 
-/obj/item/armor_module/module/better_shoulder_lamp
-	desc = "Designed for mounting on modular armor. Substantially increases the power output of your modular armor's mounted flashlight and hides your condition. Be the light in the darkness"
-
-
 /**
  * pluto
  */
@@ -215,9 +211,8 @@
 	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
 	icon_state = "mod_pluto"
 	item_state = "mod_pluto_a"
-	slowdown = 0
+	slowdown = 0.1
 	slot = ATTACHMENT_SLOT_MODULE
-	variants_by_parent_type = list(/obj/item/clothing/suit/modular/xenonauten = "mod_lamp_xn")
 
 /obj/item/armor_module/module/pluto/on_attach(obj/item/attaching_to, mob/user)
 	. = ..()
