@@ -73,7 +73,7 @@
 			if(supports_adjacent(get_turf(door)) > 1)
 				owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
 				return
-	..()
+	return ..()
 
 
 /// A version of build_resin with the plasma drain and distance checks removed.
