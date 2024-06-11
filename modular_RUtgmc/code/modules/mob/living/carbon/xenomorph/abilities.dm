@@ -61,7 +61,7 @@
 			return
 	if(X.selected_resin == /obj/structure/mineral_door/resin)
 		if(supports_adjacent(T) > 2)
-			owner.balloon_alert(owner, span_notice("Too many adjaecent supports!"))
+			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
 	var/turf/TS
 	for(var/i in GLOB.cardinals)
