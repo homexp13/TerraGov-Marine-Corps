@@ -472,7 +472,7 @@ GLOBAL_LIST_INIT(xenoupgradetiers, list(XENO_UPGRADE_BASETYPE, XENO_UPGRADE_INVA
 #define XENO_SLOWDOWN_REGEN 0.4
 
 #define XENO_DEADHUMAN_DRAG_SLOWDOWN 2
-#define XENO_EXPLOSION_GIB_THRESHOLD 0.95 //if your effective bomb armour is less than 5, devestating explosions will gib xenos
+//#define XENO_EXPLOSION_GIB_THRESHOLD 0.95 //if your effective bomb armour is less than 5, devestating explosions will gib xenos //RUTGMC REMOVAL - Explosions
 
 #define KING_SUMMON_TIMER_DURATION 5 MINUTES
 
@@ -705,11 +705,6 @@ GLOBAL_LIST_INIT(xenoupgradetiers, list(XENO_UPGRADE_BASETYPE, XENO_UPGRADE_INVA
 #define WRAITH_TELEPORT_DEBUFF_STAGGER_STACKS 2 SECONDS //Stagger and slow stacks applied to adjacent living hostiles before/after a teleport
 #define WRAITH_TELEPORT_DEBUFF_SLOWDOWN_STACKS 3 //Stagger and slow stacks applied to adjacent living hostiles before/after a teleport
 
-//Warrior defines
-
-#define WARRIOR_COMBO_THRESHOLD 2 //After how many abilities should warrior get an empowered cast (2 meaning the 3rd one is empowered)
-#define WARRIOR_COMBO_FADEOUT_TIME 10 SECONDS //How much time does it take for a combo to completely disappear
-
 //Larva defines
 #define LARVA_VENT_CRAWL_TIME 1 SECONDS //Larva can crawl into vents fast
 
@@ -796,7 +791,7 @@ GLOBAL_LIST_INIT(human_body_parts, list(BODY_ZONE_HEAD,
 #define GRAB_PIXEL_SHIFT_NECK 16
 
 #define HUMAN_CARRY_SLOWDOWN 0.35
-#define HUMAN_EXPLOSION_GIB_THRESHOLD 0.1
+//#define HUMAN_EXPLOSION_GIB_THRESHOLD 0.1 //RUTGMC DELETION, explosions
 
 
 // =============================
