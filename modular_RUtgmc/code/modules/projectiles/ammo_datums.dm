@@ -221,9 +221,70 @@
 /datum/ammo/xeno/toxin
 	bullet_color = COLOR_LIGHT_ORANGE
 
-/datum/ammo/xeno/toxin/sent //Sentinel
-	spit_cost = 70
+/datum/ammo/xeno/transvitox
+	name = "transvitox spit"
+	flags_ammo_behavior = AMMO_XENO|AMMO_EXPLOSIVE|AMMO_SKIPS_ALIENS
+	spit_cost = 80
+	added_spit_delay = 0
+	damage_type = STAMINA
+	accurate_range = 5
+	max_range = 10
+	accuracy_var_low = 3
+	accuracy_var_high = 3
+	damage = 20
+	stagger_stacks = 1.1 SECONDS
+	slowdown_stacks = 1.5
+	smoke_strength = 0.5
+	smoke_range = 0
+	reagent_transfer_amount = 4
 	icon_state = "xeno_sent_neuro"
+
+///Set up the list of reagents the spit transfers upon impact
+/datum/ammo/xeno/transvitox/proc/set_reagents()
+	spit_reagents = list(/datum/reagent/toxin/xeno_transvitox = reagent_transfer_amount)
+
+/datum/ammo/xeno/transvitox/on_hit_mob(mob/living/carbon/carbon_victim, obj/projectile/proj)
+	drop_transvitox_smoke(get_turf(carbon_victim))
+
+	if(!istype(carbon_victim) || carbon_victim.stat == DEAD || carbon_victim.issamexenohive(proj.firer) )
+		return
+
+	if(isnestedhost(carbon_victim))
+		return
+
+	carbon_victim.adjust_stagger(stagger_stacks)
+	carbon_victim.add_slowdown(slowdown_stacks)
+
+	set_reagents()
+	for(var/reagent_id in spit_reagents)
+		spit_reagents[reagent_id] = carbon_victim.modify_by_armor(spit_reagents[reagent_id], armor_type, penetration, proj.def_zone)
+
+	carbon_victim.reagents.add_reagent_list(spit_reagents)
+
+	return ..()
+
+/datum/ammo/xeno/transvitox/on_hit_obj(obj/O, obj/projectile/P)
+	var/turf/T = get_turf(O)
+	drop_transvitox_smoke(T.density ? P.loc : T)
+
+/datum/ammo/xeno/transvitox/on_hit_turf(turf/T, obj/projectile/P)
+	drop_transvitox_smoke(T.density ? P.loc : T)
+
+/datum/ammo/xeno/transvitox/do_at_max_range(turf/T, obj/projectile/P)
+	drop_transvitox_smoke(T.density ? P.loc : T)
+
+/datum/ammo/xeno/transvitox/set_smoke()
+	smoke_system = new /datum/effect_system/smoke_spread/xeno/transvitox/light()
+
+/datum/ammo/xeno/transvitox/proc/drop_transvitox_smoke(turf/T)
+	if(T.density)
+		return
+
+	set_smoke()
+	smoke_system.strength = smoke_strength
+	smoke_system.set_up(smoke_range, T)
+	smoke_system.start()
+	smoke_system = null
 
 /datum/ammo/xeno/acid
 	icon_state = "xeno_acid_weak"
