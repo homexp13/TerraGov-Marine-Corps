@@ -63,12 +63,12 @@
 		if(supports_adjacent(T) > 2)
 			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
-	var/turf/TS
+	var/turf/side_turf
 	for(var/diraction in GLOB.cardinals)
-		TS = get_step(T, diraction)
-		if(!istype(TS))
+		side_turf = get_step(T, diraction)
+		if(!istype(side_turf))
 			continue
-		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
+		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in side_turf
 		if(door && supports_adjacent(get_turf(door)) > 1)
 			owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
 			return
@@ -129,14 +129,14 @@
 		if(supports_adjacent(T) > 2)
 			owner.balloon_alert(owner, span_notice("Too many adjacent supports!"))
 			return
-	var/turf/TS
+	var/turf/side_turf
 	for(var/diraction in GLOB.cardinals)
-		TS = get_step(T, diraction)
-		if(!istype(TS))
+		side_turf = get_step(T, diraction)
+		if(!istype(side_turf))
 			continue
-		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in TS
+		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in side_turf
 		if(door && supports_adjacent(get_turf(door)) > 1)
-			owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
+			owner.balloon_alert(owner, span_notice("Too many adjacent supports for door!"))
 			return
 
 	var/atom/new_resin
