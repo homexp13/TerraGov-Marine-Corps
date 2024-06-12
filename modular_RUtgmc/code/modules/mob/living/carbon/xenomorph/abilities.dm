@@ -70,7 +70,7 @@
 			continue
 		var/obj/structure/mineral_door/resin/door = locate(/obj/structure/mineral_door/resin) in side_turf
 		if(door && supports_adjacent(get_turf(door)) > 1)
-			owner.balloon_alert(owner, span_notice("Too many adjaecent supports for door!"))
+			owner.balloon_alert(owner, span_notice("Too many adjacent supports for door!"))
 			return
 	return ..()
 
