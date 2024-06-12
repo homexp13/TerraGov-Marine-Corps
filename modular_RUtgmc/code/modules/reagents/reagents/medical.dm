@@ -198,7 +198,7 @@
 	var/bicaridine = L.reagents.get_reagent_amount(/datum/reagent/medicine/bicaridine)
 
 	if(!Ifex)
-		holder.remove_reagent(/datum/reagent/histamine, 0.2)
+		holder.remove_reagent(/datum/reagent/histamine, 0.4)
 
 	//debuffs
 	if(ibuprofen)
@@ -214,7 +214,7 @@
 
 	L.apply_damage(0.5*effect_str, OXY)
 
-	return ..()
+	current_cycle++
 
 /datum/reagent/histamine/on_mob_add(mob/living/L, metabolism)
 	to_chat(L, span_userdanger("You feel your throat tightening!"))
@@ -262,8 +262,6 @@
 	name = "Artificial bacteriophages"
 	description = "These are a batch of construction nanites altered for in-vivo replication. They can heal wounds using the iron present in the bloodstream. Medical care is recommended during injection."
 	color = COLOR_REAGENT_MEDICALNANITES
-	custom_metabolism = REAGENTS_METABOLISM * 5
-	purge_list = list(/datum/reagent/medicine, /datum/reagent/toxin, /datum/reagent/zombium)
 	purge_rate = 5
 	scannable = FALSE
 	taste_description = "metal, followed by mild burning"
@@ -281,10 +279,11 @@
 	description = "These are a batch of construction nanites altered for in-vivo replication. They can heal wounds using the iron present in the bloodstream. Medical care is recommended during injection."
 	color = COLOR_REAGENT_MEDICALNANITES
 	custom_metabolism = 0
+	purge_list = list(/datum/reagent/medicine/research/medicalnanites)
+	purge_rate = 5
 	scannable = TRUE
 	taste_description = "metal, followed by mild burning"
 	overdose_threshold = REAGENTS_OVERDOSE_CRITICAL //slight buffer to keep you safe
-	var/mode = MODE_HEAL_DAMAGE
 
 //artificial bacteriophage
 /datum/reagent/medicine/research/bacteriophages/on_mob_add(mob/living/L, metabolism)
@@ -293,36 +292,34 @@
 /datum/reagent/medicine/research/bacteriophages/on_mob_life(mob/living/L, metabolism)
 	switch(current_cycle)
 		if(1 to 80)
-			L.take_limb_damage(2*effect_str, 2*effect_str)
-			L.adjustToxLoss(1*effect_str)
 			L.reagent_pain_modifier -= PAIN_REDUCTION_SUPER_HEAVY
 			L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.5)
+			L.adjustStaminaLoss(2*effect_str)
 			if(prob(5))
 				to_chat(L, span_notice("You feel intense itching!"))
 		if(81)
 			to_chat(L, span_warning("The pain rapidly subsides. Looks like they've adapted to you."))
 		if(82 to INFINITY)
-			if(mode == MODE_HEAL_DAMAGE)
-				if(volume < 20)
-					mode = MODE_HEAL_BACTERIA
-				else
-					if (4 < L.getBruteLoss(organic_only = TRUE))
-						L.heal_overall_damage(3*effect_str, 0)
-						L.adjustToxLoss(1*effect_str)
-						holder.remove_reagent(/datum/reagent/medicine/research/bacteriophages, 0.5)
-						if(prob(40))
-							to_chat(L, span_notice("Your cuts and bruises begin to scab over rapidly!"))
-					if (4 < L.getFireLoss(organic_only = TRUE))
-						L.heal_overall_damage(0, 3*effect_str)
-						L.adjustToxLoss(1*effect_str)
-						holder.remove_reagent(/datum/reagent/medicine/research/bacteriophages, 0.5)
-						if(prob(40))
-							to_chat(L, span_notice("Your cuts and bruises begin to scab over rapidly!"))
-					L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.2)
-			else
-				if(volume > 30)
-					mode = MODE_HEAL_DAMAGE
-				else
-					L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.4)
-					L.adjustToxLoss(3*effect_str)
+			if(volume < 20)
+				L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.4)
+				L.adjustStaminaLoss(2*effect_str)
+				L.adjustToxLoss(1*effect_str)
+			if(volume < 30)
+				L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.3)
+				L.adjustStaminaLoss(2*effect_str)
+				L.adjustToxLoss(0.5*effect_str)
+			if(volume < 40)
+				L.reagents.add_reagent(/datum/reagent/medicine/research/bacteriophages, 0.2)
+
+			if (volume > 10 && L.getBruteLoss(organic_only = TRUE))
+				L.heal_overall_damage(1*effect_str, 0)
+				L.adjustToxLoss(0.1*effect_str)
+				holder.remove_reagent(/datum/reagent/medicine/research/bacteriophages, 0.5)
+				if(prob(20))
+					to_chat(L, span_notice("Your cuts and bruises begin to scab over rapidly!"))
+			if (volume > 10 && L.getFireLoss(organic_only = TRUE))
+				L.heal_overall_damage(0, 1*effect_str)
+				holder.remove_reagent(/datum/reagent/medicine/research/bacteriophages, 0.5)
+				if(prob(20))
+					to_chat(L, span_notice("Your burns begin to slough off, revealing healthy tissue!"))
 	return ..()

@@ -3,7 +3,7 @@
 	desc = "Contains pills capable of long-duration nonsteroidal anti-inflammatory effect."
 	icon_state = "pill_canistercomplete"
 	pill_type_to_fill = /obj/item/reagent_containers/pill/ibuprofen
-	greyscale_colors = "#FF8C00#ffffff"
+	greyscale_colors = "#FC3D03#ffffff"
 	greyscale_config = /datum/greyscale_config/pillbottleround
 	description_overlay = "Ib"
 
@@ -24,3 +24,12 @@
 	greyscale_colors = "#9ACD32#ffffff"
 	greyscale_config = /datum/greyscale_config/pillbottleround
 	description_overlay = "If"
+
+/obj/item/storage/pill_bottle/imidalk
+	name = "imidalk pill bottle"
+	desc = "Contains pills used to fix brain, ear and eye damage"
+	icon_state = "pill_canistercomplete"
+	pill_type_to_fill = /obj/item/reagent_containers/pill/imidalk
+	greyscale_colors = "#E467B3#ffffff"
+	greyscale_config = /datum/greyscale_config/pillbottleround
+	description_overlay = "IA"
