@@ -55,7 +55,8 @@
 			xenomorph_owner.heal_overall_damage(25, 25, updating_health = TRUE)
 			if(human_target.can_sting())
 				tearing_tail_reagent = xenomorph_owner.selected_reagent
-				human_target.reagents.add_reagent(tearing_tail_reagent, PANTHER_TEARING_TAIL_REAGENT_AMOUNT)
+				var/reagent_amount = (xenomorph_owner.selected_reagent == /datum/reagent/toxin/xeno_ozelomelyn) ? PANTHER_TEARING_TAIL_REAGENT_AMOUNT * 0.5 : PANTHER_TEARING_TAIL_REAGENT_AMOUNT
+				human_target.reagents.add_reagent(tearing_tail_reagent, reagent_amount)
 				playsound(human_target, 'sound/effects/spray3.ogg', 15, TRUE)
 			shake_camera(human_target, 2, 1)
 			to_chat(human_target, span_xenowarning("We are hit by \the [xenomorph_owner]'s tail sweep!"))
@@ -498,6 +499,7 @@
 	var/static/list/panther_toxin_images_list = list(
 			PANTHER_HEMODILE = image('modular_RUtgmc/icons/Xeno/actions.dmi', icon_state = PANTHER_HEMODILE),
 			PANTHER_TRANSVITOX = image('modular_RUtgmc/icons/Xeno/actions.dmi', icon_state = PANTHER_TRANSVITOX),
+			PANTHER_OZELOMELYN = image('modular_RUtgmc/icons/Xeno/actions.dmi', icon_state = PANTHER_OZELOMELYN),
 			PANTHER_SANGUINAL = image('modular_RUtgmc/icons/Xeno/actions.dmi', icon_state = PANTHER_SANGUINAL),
 			)
 	var/toxin_choice = show_radial_menu(owner, owner, panther_toxin_images_list, radius = 48)
@@ -515,4 +517,5 @@
 
 #undef PANTHER_HEMODILE
 #undef PANTHER_TRANSVITOX
+#undef PANTHER_OZELOMELYN
 #undef PANTHER_SANGUINAL

@@ -9,6 +9,7 @@
 //Panther tearing tail reagents
 #define PANTHER_HEMODILE "Hemodile"
 #define PANTHER_TRANSVITOX "Transvitox"
+#define PANTHER_OZELOMELYN "Ozelomelyn"
 #define PANTHER_SANGUINAL "Sanguinal"
 
 //Forbid
@@ -55,6 +56,7 @@ RU TGMC EDIT*/
 GLOBAL_LIST_INIT(panther_toxin_type_list, list(
 		/datum/reagent/toxin/xeno_hemodile,
 		/datum/reagent/toxin/xeno_transvitox,
+		/datum/reagent/toxin/xeno_ozelomelyn,
 		/datum/reagent/toxin/xeno_sanguinal,
 		))
 
