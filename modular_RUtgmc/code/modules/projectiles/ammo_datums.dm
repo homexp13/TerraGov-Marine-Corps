@@ -180,15 +180,15 @@
 
 /datum/ammo/bullet/shotgun/flechette
 	sundering = 0
-	additional_xeno_penetration = 35
+	additional_xeno_penetration = 28
 
 /datum/ammo/bullet/shotgun/flechette/flechette_spread
 	sundering = 0
-	additional_xeno_penetration = 30
+	additional_xeno_penetration = 25
 
 /datum/ammo/bullet/shotgun/tx15_flechette
 	sundering = 0
-	additional_xeno_penetration = 20
+	additional_xeno_penetration = 18
 
 /datum/ammo/bullet/shotgun/tx15_slug
 	sundering = 0
@@ -230,7 +230,8 @@
 	sundering = 0
 	additional_xeno_penetration = 20
 
-/datum/ammo/bullet/minigun/mech	sundering = 0
+/datum/ammo/bullet/minigun/mech
+	sundering = 0
 	additional_xeno_penetration = 4
 
 /*
