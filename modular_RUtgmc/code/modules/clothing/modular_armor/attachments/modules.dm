@@ -73,6 +73,8 @@
 	for(var/mob/living/carbon/human/nearby_human AS in cheap_get_humans_near(operator, range))
 		if(nearby_human == operator)
 			continue
+		if(HAS_TRAIT(nearby_human, TRAIT_LIGHT_STEP))
+			continue
 		if(!hostile_detected && (!operator.wear_id || !nearby_human.wear_id || nearby_human.wear_id.iff_signal != operator.wear_id.iff_signal))
 			hostile_detected = TRUE
 		prepare_blip(nearby_human, nearby_human.wear_id?.iff_signal & operator.wear_id?.iff_signal ? MOTION_DETECTOR_FRIENDLY : MOTION_DETECTOR_HOSTILE)
@@ -173,6 +175,9 @@
 	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
 	variants_by_parent_type = list(/obj/item/clothing/head/modular/m10x = "artemis_head_xn")
 
+/obj/item/armor_module/module/binoculars
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+
 /obj/item/armor_module/module/binoculars/artemis_mark_two
 	var/eye_protection_mod = 1
 	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
@@ -189,21 +194,29 @@
 	blur_p?.RemoveComponent()
 	return ..()
 
+/obj/item/armor_module/module/hod_head
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+
+/obj/item/armor_module/module/welding
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+
+/obj/item/armor_module/module/welding/superior
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+
+/obj/item/armor_module/module/antenna
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
+
 /obj/item/armor_module/module/fire_proof/som
 	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
 
 /obj/item/armor_module/module/tyr_extra_armor/som
-	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
 
 /obj/item/armor_module/module/mimir_environment_protection/som
-	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
 
 /obj/item/armor_module/module/valkyrie_autodoc/som
-	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
-
-/obj/item/armor_module/module/welding/som
-	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
-
+	icon = 'modular_RUtgmc/icons/mob/modular/modular_armor_modules.dmi'
 /obj/item/armor_module/storage/engineering/som
 	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
 
@@ -212,7 +225,7 @@
 
 /obj/item/armor_module/storage/medical/som
 	icon = 'modular_RUtgmc/icons/mob/modular/som_armor_modules.dmi'
-  
+
 /obj/item/armor_module/module/antenna/activate(mob/living/user)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(update_beacon_location)), 5 SECONDS)
